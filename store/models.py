@@ -342,7 +342,7 @@ class UserQuery(models.Model):
 class ConvoLog(models.Model):
     created_date = models.DateTimeField(auto_now_add=True)  # Timestamp of record creation
     username = models.CharField(max_length=255)
-    topic = models.CharField(max_length=255)  # New field for topic
+    topic = models.CharField(max_length=1000)  # New field for topic
     from_user = models.CharField(max_length=255)  # New field for 'from'
     to_users = models.CharField(max_length=255)  # New field for 'to'
     message = models.TextField()  # New field for message
@@ -352,7 +352,7 @@ class ConvoLog(models.Model):
         return f"Question by {self.username} at {self.created_date}"
  
 class ConversationTopic(models.Model):
-    title = models.CharField(max_length=255)            # Title of the conversation topic
+    title = models.CharField(max_length=1000)            # Title of the conversation topic
     created_date = models.DateTimeField(auto_now_add=True)  # Timestamp of record creation
 
     def __str__(self):
