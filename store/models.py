@@ -337,3 +337,23 @@ class UserQuery(models.Model):
 
     def __str__(self):
         return f"Question by {self.username} at {self.created_date}"
+    
+
+class ConvoLog(models.Model):
+    created_date = models.DateTimeField(auto_now_add=True)  # Timestamp of record creation
+    username = models.CharField(max_length=255)
+    topic = models.CharField(max_length=255)  # New field for topic
+    from_user = models.CharField(max_length=255)  # New field for 'from'
+    to_users = models.CharField(max_length=255)  # New field for 'to'
+    message = models.TextField()  # New field for message
+    processed = models.BooleanField(default=False)  # New field for processed status
+
+    def __str__(self):
+        return f"Question by {self.username} at {self.created_date}"
+ 
+class ConversationTopic(models.Model):
+    title = models.CharField(max_length=255)            # Title of the conversation topic
+    created_date = models.DateTimeField(auto_now_add=True)  # Timestamp of record creation
+
+    def __str__(self):
+        return self.title    

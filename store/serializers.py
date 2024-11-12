@@ -2,7 +2,19 @@
 from rest_framework import serializers
 from .models import TwitterStatus
 from .models import UserQuery
+from .models import ConvoLog
+from .models import ConversationTopic
 
+
+class ConversationTopicSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ConversationTopic
+        fields = '__all__' # Include 'id' for easier reference
+
+class ConvoLogSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ConvoLog
+        fields = '__all__'  # This will include all fields in the model
 
 class TwitterStatusSerializer(serializers.ModelSerializer):
     class Meta:

@@ -76,11 +76,14 @@ from .models import UserQuery
 from .models import TokenMarketingContent
 
 from .models import Tweet
- 
+
+from .models import ConvoLog
+from .models import ConversationTopic
 
 from .forms import TokenMarketingContentForm
 from .forms import TweetForm 
 
+from .serializers import ConversationTopicSerializer
 
 from .serializers import TwitterStatusSerializer
 from .serializers import UserQuerySerializer
@@ -126,6 +129,62 @@ poker_player_types = [{"type": "Drunk Player", "description": "Often makes reckl
 
 def admin_required(view_func):
     return user_passes_test(lambda u: u.is_superuser)(view_func)
+
+
+
+@admin_required
+@require_POST
+def delete_conversation_topic(request, pk):
+    topic = get_object_or_404(ConversationTopic, pk=pk)
+    topic.delete()
+    return redirect('conversation_topics')
+
+@admin_required
+def delete_convo_log(request, id):
+    convo_log = get_object_or_404(ConvoLog, id=id)
+    convo_log.delete()
+    messages.success(request, 'Conversation log deleted successfully.')
+    return redirect('index')  # Replace 'convo_log_list' with your list view name
+
+
+def conversation_topics(request):
+    topics = ConversationTopic.objects.all().order_by('-created_date')  # Order by most recent
+    
+    if request.headers.get('Content-Type') == 'application/json' or request.GET.get('format') == 'json':
+        # Prepare data for JSON response
+        topics_data = [
+            {
+                'id': topic.id,
+                'title': topic.title,
+                'created_date': topic.created_date, 
+            }
+            for topic in topics
+        ]
+        return JsonResponse({'topics': topics_data})
+
+    return render(request, 'conversation_topics.html', {'topics': topics})
+
+@csrf_exempt
+@admin_required
+@api_view(['POST'])
+def create_conversation_topic(request):
+    if request.method == 'POST':
+        serializer = ConversationTopicSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+@csrf_exempt
+@admin_required
+@api_view(['POST'])
+def create_convo_log(request):
+    if request.method == 'POST':
+        serializer = ConvoLogSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 @csrf_exempt
 @admin_required

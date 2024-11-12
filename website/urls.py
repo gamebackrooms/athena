@@ -51,6 +51,12 @@ urlpatterns = [
     path('api/user-query/<int:query_id>/', views.get_user_query, name='get_user_query'),
     path('user-queries/', views.user_queries_view, name='user_queries_view'),
     path('accounts/login/', views.login_view, name='login'),
+    path('api/convo-log/', views.create_convo_log, name='create_convo_log'),
+    path('convo_log/<int:pk>/', views.convo_log_detail, name='convo_log_detail'),
+    path('api/conversation-topics/', views.create_conversation_topic, name='create_conversation_topic'),
+    path('topics/', views.conversation_topics, name='conversation_topics'),  # URL to view topics
+    path('topics/<int:pk>/delete/', views.delete_conversation_topic, name='conversation_topic_delete'),
+    path('convo_log/delete/<int:id>/', views.delete_convo_log, name='delete_convo_log'),
 
 ]
 
