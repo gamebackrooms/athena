@@ -65,7 +65,7 @@
                 </div>
                 <div class="log-info mt-2">
                   <p class="mb-1"><strong>From:</strong> {{ log.from_user }}</p>
-                  <p class="mb-1"><strong>To:</strong> {{ log.to_users }}</p>
+                  <!-- <p class="mb-1"><strong>To:</strong> {{ log.to_users }}</p> -->
                   <p class="mt-3">{{ log.message }}</p>
                   <p class="mt-3"><a href="{% url 'convo_log_detail' log.id %}" class="terminal-green"><i class="fas fa-info-circle"></i></a></p>
                 </div>
