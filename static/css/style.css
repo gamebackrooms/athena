@@ -43,34 +43,35 @@ footer a:hover {
   text-decoration: underline;
 }
 
-/* Navbar specific styles */
+/* Navbar specific styles with enforced background color */
 .navbar {
-  background-color: rgba(31, 31, 31, 0.9); /* Slightly darker semi-transparent */
-  color: #00FF00;
+  background-color: rgba(31, 31, 31, 0.9) !important; /* Slightly darker semi-transparent with !important */
+  color: #00FF00 !important;
 }
 
 .navbar-brand,
 .navbar-nav .nav-link {
-  color: #00FF00;
+  color: #00FF00 !important;
   font-weight: bold;
 }
 
 .navbar-nav .nav-link:hover {
-  color: #00AA00; /* Slightly darker green on hover */
+  color: #00AA00 !important; /* Slightly darker green on hover */
 }
 
 .navbar-toggler {
-  background-color: #00FF00; /* Green color for toggler in mobile view */
+  background-color: #00FF00 !important; /* Green color for toggler in mobile view */
 }
 
 .navbar-toggler-icon {
-  filter: invert(1); /* Ensures the toggler icon is visible */
+  filter: invert(1) !important; /* Ensures the toggler icon is visible */
 }
 
 /* Active link color in the navbar */
 .navbar-nav .nav-item.active .nav-link,
 .navbar-nav .nav-link.active {
-  color: #00AA00; /* Different green to highlight active links */
+  color: #00AA00 !important; /* Different green to highlight active links */
   font-weight: bold;
-  border-bottom: 2px solid #00FF00; /* Optional underline for active links */
+  border-bottom: 2px solid #00FF00 !important; /* Optional underline for active links */
 }
+
