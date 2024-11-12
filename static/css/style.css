@@ -2,7 +2,10 @@
 body {
   background-color: #000000; /* Dark background */
   color: #00FF00; /* Terminal green text color */
+  font-family: 'Courier New', Courier, monospace; /* Terminal character type */
   text-align: left !important; /* Ensure left alignment */
+  font-size: 16px; /* Adjust font size as desired */
+  line-height: 1.5; /* Improve readability */
 }
 
 /* Card Body Styles */
