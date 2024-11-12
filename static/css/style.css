@@ -1,12 +1,12 @@
+/* General dark mode and terminal green styling */
 body {
-  background-color: #000000; /* Bootstrap's bg-dark color */
-  color: #00FF00; /* Terminal green color */
+  background-color: #000000; /* Black background */
+  color: #00FF00; /* Terminal green text */
 }
 
 .navbar, footer {
-  background-color: rgba(31, 31, 31, 0.8); /* Semi-transparent background */
-  color: #00FF00;
-  background-size: cover; /* Ensures the image covers the entire viewport */
+  background-color: rgba(31, 31, 31, 0.8); /* Semi-transparent dark */
+  color: #00FF00; /* Terminal green text */
 }
 
 .content-container {
@@ -16,16 +16,18 @@ body {
   color: #00FF00;
 }
 
+/* Button styles */
 .btn-dark-custom {
   background-color: #000000;
   color: #00FF00;
 }
 
-.btn-dark-custom:hover {s
+.btn-dark-custom:hover {
   background-color: #555;
   border-color: #666;
 }
 
+/* Footer styles */
 footer {
   padding: 15px 0;
   background-color: #000000;
@@ -33,10 +35,42 @@ footer {
 }
 
 footer a {
-  background-color: #000000; 
+  color: #00FF00; 
   text-decoration: none;
 }
 
 footer a:hover {
   text-decoration: underline;
+}
+
+/* Navbar specific styles */
+.navbar {
+  background-color: rgba(31, 31, 31, 0.9); /* Slightly darker semi-transparent */
+  color: #00FF00;
+}
+
+.navbar-brand,
+.navbar-nav .nav-link {
+  color: #00FF00;
+  font-weight: bold;
+}
+
+.navbar-nav .nav-link:hover {
+  color: #00AA00; /* Slightly darker green on hover */
+}
+
+.navbar-toggler {
+  background-color: #00FF00; /* Green color for toggler in mobile view */
+}
+
+.navbar-toggler-icon {
+  filter: invert(1); /* Ensures the toggler icon is visible */
+}
+
+/* Active link color in the navbar */
+.navbar-nav .nav-item.active .nav-link,
+.navbar-nav .nav-link.active {
+  color: #00AA00; /* Different green to highlight active links */
+  font-weight: bold;
+  border-bottom: 2px solid #00FF00; /* Optional underline for active links */
 }
