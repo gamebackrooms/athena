@@ -167,6 +167,7 @@ def conversation_topics(request):
 
 @csrf_exempt
 @admin_required 
+@api_view(['POST'])
 def create_conversation_topic(request):
     print("create_conversation_topic")
     if request.method == 'POST':
