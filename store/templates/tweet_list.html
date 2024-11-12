@@ -10,7 +10,6 @@
     <div class="container mt-5 text-light">         
       <div class="row">
         <div class="col-md-12 text-center">  
-        
             <ul>
                 {% for tweet in tweets %}
                     <li>{{ tweet.content }} - {{ tweet.created_at }} - Processed: {{ tweet.is_processed }}
@@ -21,9 +20,6 @@
                     <li>No tweets available.</li>
                 {% endfor %}
             </ul> 
-      
- 
-
         </div>
       </div>
       
