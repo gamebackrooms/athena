@@ -3,16 +3,16 @@
 {% block content %}
 <!-- Displaying JSON data -->
 <section class="py-0">
-  <div class="container-fluid">
+  <div class="container-fluid text-left">
     <div class="container mt-5 text-light">         
       <div class="row text-left">
         <div class="col-md-12 text-center terminal-green text-left">   
             <p class="text-left"><strong>Created Date:</strong> {{ convo_log.created_date }}</p> 
-            <p><strong>Topic:</strong> {{ convo_log.topic }}</p>
-            <p><strong>From:</strong> {{ convo_log.from_user }}</p>
-            <p><strong>To:</strong> {{ convo_log.to_users }}</p>
-            <p><strong>Message:</strong> {{ convo_log.message }}</p>   
-            <a href="https://twitter.com/intent/tweet?text={{ convo_log.message|urlencode }}" target="_blank"> <i class="fab fa-twitter" style="font-size: 20px;"></i></a>                  
+            <p class="text-left"><strong>Topic:</strong> {{ convo_log.topic }}</p>
+            <p class="text-left"><strong>From:</strong> {{ convo_log.from_user }}</p>
+            <p class="text-left"><strong>To:</strong> {{ convo_log.to_users }}</p>
+            <p class="text-left"><strong>Message:</strong> {{ convo_log.message }}</p>   
+            <a class="text-left" href="https://twitter.com/intent/tweet?text={{ convo_log.message|urlencode }}" target="_blank"> <i class="fab fa-twitter" style="font-size: 20px;"></i></a>                  
         </div>
       </div>
     </div>
