@@ -1,33 +1,42 @@
 body {
-    background-color: #343a40; /* Bootstrap's bg-dark color */
-    color: #f8f9fa; /* Bootstrap's text-light color */
-}  
-  .navbar, footer {
-    background-color: rgba(31, 31, 31, 0.8); /* Semi-transparent background */
-    background-size: cover; /* Ensures the image covers the entire viewport */
-    color: #e0e0e0;
-  }
-  .content-container {
-    background-color: rgba(18, 18, 18, 0.8); /* Dark overlay for content readability */
-    padding: 20px;
-    border-radius: 8px;
-  }
-  .btn-dark-custom {
-    background-color: #333;
-    border-color: #444;
-    color: #e0e0e0;
-  }
-  .btn-dark-custom:hover {
-    background-color: #555;
-    border-color: #666;
-  }
-  footer {
-    padding: 15px 0;
-  }
-  footer a {
-    color: #bdbdbd;
-    text-decoration: none;
-  }
-  footer a:hover {
-    text-decoration: underline;
-  }
+  background-color: #343a40; /* Bootstrap's bg-dark color */
+  color: #00FF00; /* Terminal green color */
+}
+
+.navbar, footer {
+  background-color: rgba(31, 31, 31, 0.8); /* Semi-transparent background */
+  color: #00FF00;
+  background-size: cover; /* Ensures the image covers the entire viewport */
+}
+
+.content-container {
+  background-color: rgba(18, 18, 18, 0.8); /* Dark overlay for content readability */
+  padding: 20px;
+  border-radius: 8px;
+  color: #00FF00;
+}
+
+.btn-dark-custom {
+  background-color: #333;
+  border-color: #444;
+  color: #00FF00;
+}
+
+.btn-dark-custom:hover {
+  background-color: #555;
+  border-color: #666;
+}
+
+footer {
+  padding: 15px 0;
+  color: #00FF00;
+}
+
+footer a {
+  color: #00FF00;
+  text-decoration: none;
+}
+
+footer a:hover {
+  text-decoration: underline;
+}
