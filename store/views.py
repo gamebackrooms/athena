@@ -76,7 +76,7 @@ from .models import UserQuery
 from .models import TokenMarketingContent
 
 from .models import Tweet
-
+ 
 from .models import ConvoLog
 from .models import ConversationTopic
 
@@ -87,6 +87,7 @@ from .serializers import ConversationTopicSerializer
 
 from .serializers import TwitterStatusSerializer
 from .serializers import UserQuerySerializer
+from .serializers import ConvoLogSerializer
 
 import base64
 import base58
@@ -131,10 +132,6 @@ def admin_required(view_func):
     return user_passes_test(lambda u: u.is_superuser)(view_func)
 
 
-def convo_log_detail(request, pk):
-    convo_log = get_object_or_404(ConvoLog, pk=pk)
-    return render(request, 'convo_log_detail.html', {'convo_log': convo_log})
-
 @admin_required
 @require_POST
 def delete_conversation_topic(request, pk):
@@ -167,9 +164,11 @@ def conversation_topics(request):
 
     return render(request, 'conversation_topics.html', {'topics': topics})
 
+
 @csrf_exempt
 @admin_required 
 def create_conversation_topic(request):
+    print("create_conversation_topic")
     if request.method == 'POST':
         serializer = ConversationTopicSerializer(data=request.data)
         if serializer.is_valid():
@@ -219,6 +218,10 @@ def get_user_query(request, query_id):
         serializer = UserQuerySerializer(user_query)
         return Response(serializer.data)
  
+def convo_log_detail(request, pk):
+    convo_log = get_object_or_404(ConvoLog, pk=pk)
+    return render(request, 'convo_log_detail.html', {'convo_log': convo_log})
+
 
 def user_queries_view(request):
     # Fetch all queries from the database 
