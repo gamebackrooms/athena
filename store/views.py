@@ -131,6 +131,9 @@ def admin_required(view_func):
     return user_passes_test(lambda u: u.is_superuser)(view_func)
 
 
+def convo_log_detail(request, pk):
+    convo_log = get_object_or_404(ConvoLog, pk=pk)
+    return render(request, 'convo_log_detail.html', {'convo_log': convo_log})
 
 @admin_required
 @require_POST
