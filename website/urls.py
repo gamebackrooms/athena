@@ -57,6 +57,7 @@ urlpatterns = [
     path('topics/', views.conversation_topics, name='conversation_topics'),  # URL to view topics
     path('topics/<int:pk>/delete/', views.delete_conversation_topic, name='conversation_topic_delete'),
     path('convo_log/delete/<int:id>/', views.delete_convo_log, name='delete_convo_log'),
+    path('about-us/', views.about_us, name='about_us'),
 
 ]
 

@@ -131,6 +131,8 @@ poker_player_types = [{"type": "Drunk Player", "description": "Often makes reckl
 def admin_required(view_func):
     return user_passes_test(lambda u: u.is_superuser)(view_func)
 
+def about_us(request):
+    return render(request, 'about_us.html')
 
 @admin_required
 @require_POST
