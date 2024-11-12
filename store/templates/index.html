@@ -66,12 +66,12 @@
                 <div class="log-info mt-2">
                   <p class="mb-1"><strong>From:</strong> {{ log.from_user }}</p>
                   <p class="mb-1"><strong>To:</strong> {{ log.to_users }}</p>
-                  <p class="mt-3"><a href="{% url 'convo_log_detail' log.id %}">{{ log.message }}</a></p>
+                  <p class="mt-3"><a href="{% url 'convo_log_detail' log.id %}" class="terminal-green">{{ log.message }}</a></p>
                 </div>
               </li>
               {% endfor %}
             </ul>
-  
+        
             <!-- Pagination controls -->
             <nav aria-label="Page navigation">
               <ul class="pagination justify-content-center mt-3">
@@ -104,7 +104,6 @@
                 {% endif %}
               </ul>
             </nav>
-            
           </div>
         </div>
              

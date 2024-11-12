@@ -96,3 +96,45 @@ footer a:hover {
   border-bottom: 2px solid #00FF00 !important; /* Optional underline for active links */
 }
 
+.terminal-green {
+  color: #00ff00; /* Terminal green color for specific elements */
+}
+
+.text-muted {
+  color: #00cc00; /* Slightly muted green for dates and secondary text */
+}
+
+.convo-logs .list-group-item {
+  background-color: #333333; /* Dark background for list items */
+  border: 1px solid #555555; /* Border with dark grey for contrast */
+  color: #00ff00; /* Text color */
+}
+
+.convo-logs .list-group-item:hover {
+  background-color: #444444; /* Slightly lighter on hover */
+}
+
+.btn-danger {
+  color: #ffffff; /* White text for delete button */
+  background-color: #ff3333; /* Red background for delete button */
+  border-color: #ff3333;
+}
+
+.btn-danger:hover {
+  background-color: #cc0000; /* Darker red on hover */
+  border-color: #cc0000;
+}
+
+.pagination .page-link {
+  background-color: #333333; /* Dark background for pagination */
+  color: #00ff00; /* Green text */
+  border: 1px solid #555555;
+}
+
+.pagination .page-item.disabled .page-link {
+  color: #00cc00; /* Slightly muted green for disabled pagination items */
+}
+
+.pagination .page-link:hover {
+  background-color: #444444; /* Lighter dark on hover */
+}
