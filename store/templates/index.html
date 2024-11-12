@@ -34,15 +34,15 @@
         <div class="card-body custom-card-body">
         <h3 class="card-title text-center">Executive Summary</h3>
         <div class="list-group list-group-flush">
-            <div class="list-group-item border-0">
+            <div class="list-group-item border-0 text-left">
                 <h5 class="mb-2">Concept</h5>
                 <p>Sport Terminal is a real-time digital platform providing exclusive sports insights, backroom discussions, and expert analysis. With a unique token-based access system, the platform blends community interaction, live sports data, and expert commentary.</p>
             </div>
-            <div class="list-group-item border-0">
+            <div class="list-group-item border-0 text-left">
                 <h5 class="mb-2">Token</h5>
                 <p>Launching the SPORT token to drive platform engagement, grant premium access, and enable rewards, encouraging user retention and community growth.</p>
             </div>
-            <div class="list-group-item border-0">
+            <div class="list-group-item border-0 text-left">
                 <h5 class="mb-2">Vision</h5>
                 <p>To become the leading platform for exclusive sports insights, blending the worlds of fan interaction, expert commentary, and real-time analytics.</p>
             </div>
@@ -51,12 +51,12 @@
         
         <div class="row">
           <div class="col-md-12 text-center terminal-green">  
-            <ul class="convo-logs list-group">
+            <ul class="convo-logs list-group text-left">
               {% for log in page_obj %}
               <li class="list-group-item mb-3">
-                <div class="d-flex justify-content-between">
-                  <div class="log-date text-muted">({{ log.created_date }})</div>
-                  <div class="log-topic terminal-green">
+                <div class="d-flex justify-content-between text-left">
+                  <div class="log-date text-muted text-left">({{ log.created_date }})</div>
+                  <div class="log-topic terminal-green text-left">
                     {{ log.topic }} 
                   </div>
                   {% if user.is_staff %}
