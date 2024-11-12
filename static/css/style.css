@@ -1,8 +1,28 @@
-/* General dark mode and terminal green styling */
+/* Ensure card-body inherits body styles */
 body {
-  background-color: #000000; /* Black background */
-  color: #00FF00; /* Terminal green text */
+  background-color: #000000; /* Dark background */
+  color: #00FF00; /* Terminal green text color */
 }
+
+.custom-card-body {
+  background-color: inherit; /* Inherit background color from body */
+  color: inherit; /* Inherit text color from body */
+}
+
+.custom-card-body .list-group-item {
+  background-color: inherit; /* Inherit background color from body */
+  color: inherit; /* Inherit text color from body */
+}
+
+.custom-card-body .list-group-item:hover {
+  background-color: rgba(31, 31, 31, 0.8); /* Optional dark hover effect */
+  color: #00FF00; /* Terminal green text color */
+}
+
+.custom-card-body h3, .custom-card-body h5 {
+  color: inherit; /* Ensure headings inherit body text color */
+}
+
 
 .navbar, footer {
   background-color: rgba(31, 31, 31, 0.8); /* Semi-transparent dark */
