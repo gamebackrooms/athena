@@ -557,6 +557,13 @@ def index(request):
 
     latest_marketing_content = None
 
+    convo_logs = ConvoLog.objects.all().order_by('-created_date')
+    
+    # Set up pagination for convo_logs
+    paginator = Paginator(convo_logs, 10)  # Show 10 logs per page
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+
     form = TweetForm()
     
     context = {
@@ -567,6 +574,7 @@ def index(request):
         'filter_option': filter_option,
         'latest_marketing_content': latest_marketing_content,  # Add this line
         'form': form,
+        'page_obj': page_obj,
     }
     response = render(request, 'index.html', context)
     response.set_cookie('access_id', access_id)

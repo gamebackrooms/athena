@@ -59,8 +59,8 @@ SOCIAL_AUTH_PIPELINE = (
 )
 
 CORS_ALLOWED_ORIGINS = [
-    'https://memelic.com',
-    'https://www.memelic.com',
+    'https://gamebackrooms.com',
+    'https://www.gamebackrooms.com',
     # other allowed origins
 ]
 
