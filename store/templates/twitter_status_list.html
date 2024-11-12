@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% load custom_filters %}
+{% block content %}
+<!-- Displaying JSON data in Dark Mode -->
+<section class="py-0">
+  <div class="container-fluid bg-dark">
+    <div class="container mt-5 text-light">         
+      <div class="row">
+        <div class="col-md-12 text-center">  
+            <h1 class="text-light">Notifications</h1>
+            <table class="table table-bordered table-dark table-hover mx-auto">
+                <thead>
+                    <tr></tr>
+                        <th>Username</th>
+                        <th>Status ID</th>
+                        <th>Created By</th>
+                        <th>Created At</th>
+                        <th>Processed</th>                        
+                        <th>Actions</th> <!-- Add Actions Column -->
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for status in statuses %}
+                    <tr>
+                        <td>{{ status.x_user }}</td>
+                        <td>{{ status.status_id }}</td>
+                        <td>{{ status.created_by_user }}</td>
+                        <td>{{ status.created_at }}</td>
+                        <td>{{ status.processed }}</td>
+                        <td>
+                            <form method="POST" action="{% url 'delete_status' status.id %}">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                            </form>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>   
+{% endblock %}

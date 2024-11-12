@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+
+{% load custom_filters %}
+
+{% block content %}
+
+<!-- Displaying JSON data -->
+<section class="py-0">
+  <div class="container-fluid">
+    <div class="container mt-5 text-light">         
+      <div class="row">
+        <div class="col-md-12 text-center">  
+    
+            <table border="1">
+                <thead>
+                    <tr>
+                        <th>Connanicall Action</th>
+                        <th>Username</th>
+                        <th>Question</th>
+                        <th>Reasoning</th>
+                        <th>Response</th>
+                        <th>Created Date</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for query in user_queries %}
+                    <tr>
+                        <td>{{ query.connanicall_action_text }}</td>
+                        <td>{{ query.username }}</td>
+                        <td>{{ query.question }}</td>
+                        <td>{{ query.reasoning }}</td>
+                        <td>{{ query.response }}</td>
+                        <td>{{ query.created_date }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+      
+ 
+
+        </div>
+      </div>
+      
+    </div>
+  </div>
+</section>    
+
+{% endblock %}

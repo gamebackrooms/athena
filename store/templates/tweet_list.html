@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+{% load custom_filters %}
+
+{% block content %}
+
+<!-- Displaying JSON data -->
+<section class="py-0">
+  <div class="container-fluid">
+    <div class="container mt-5 text-light">         
+      <div class="row">
+        <div class="col-md-12 text-center">  
+        
+            <ul>
+                {% for tweet in tweets %}
+                    <li>{{ tweet.content }} - {{ tweet.created_at }} - Processed: {{ tweet.is_processed }}
+        
+                        <a href="{% url 'tweet_delete' tweet.id %}">Remove</a>
+                    </li>
+                {% empty %}
+                    <li>No tweets available.</li>
+                {% endfor %}
+            </ul> 
+      
+ 
+
+        </div>
+      </div>
+      
+    </div>
+  </div>
+</section>    
+
+{% endblock %}
