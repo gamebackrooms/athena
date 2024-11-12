@@ -1,80 +1,79 @@
-/* Ensure card-body inherits body styles */
+/* Global Styles */
 body {
   background-color: #000000; /* Dark background */
   color: #00FF00; /* Terminal green text color */
-  text-align: left; /* Left-align all text by default */
+  text-align: left !important; /* Ensure left alignment */
 }
 
-.custom-card-body {
-  background-color: inherit; /* Inherit background color from body */
-  color: inherit; /* Inherit text color from body */
-}
-
+/* Card Body Styles */
+.custom-card-body,
 .custom-card-body .list-group-item {
-  background-color: inherit; /* Inherit background color from body */
-  color: inherit; /* Inherit text color from body */
+  background-color: inherit !important; /* Inherit background color from body */
+  color: inherit !important; /* Inherit text color from body */
 }
 
 .custom-card-body .list-group-item:hover {
-  background-color: rgba(31, 31, 31, 0.8); /* Optional dark hover effect */
-  color: #00FF00; /* Terminal green text color */
+  background-color: rgba(31, 31, 31, 0.8) !important; /* Dark hover effect */
+  color: #00FF00 !important;
 }
 
-.custom-card-body h3, .custom-card-body h5 {
-  color: inherit; /* Ensure headings inherit body text color */
+/* Headings */
+.custom-card-body h3, 
+.custom-card-body h5 {
+  color: inherit !important;
 }
 
-
+/* Navbar and Footer Styling */
 .navbar, footer {
-  background-color: rgba(31, 31, 31, 0.8); /* Semi-transparent dark */
-  color: #00FF00; /* Terminal green text */
+  background-color: rgba(31, 31, 31, 0.8) !important;
+  color: #00FF00 !important;
 }
 
+/* Content Container */
 .content-container {
-  background-color: rgba(0, 0, 0, 0.8); /* Dark overlay for content readability */
-  padding: 20px;
-  border-radius: 8px;
-  color: #00FF00;
+  background-color: rgba(0, 0, 0, 0.8) !important;
+  padding: 20px !important;
+  border-radius: 8px !important;
+  color: #00FF00 !important;
 }
 
-/* Button styles */
+/* Button Styles */
 .btn-dark-custom {
-  background-color: #000000;
-  color: #00FF00;
+  background-color: #000000 !important;
+  color: #00FF00 !important;
 }
 
 .btn-dark-custom:hover {
-  background-color: #555;
-  border-color: #666;
+  background-color: #555 !important;
+  border-color: #666 !important;
 }
 
-/* Footer styles with enforced background color */
+/* Footer with Enforced Colors */
 footer {
-  padding: 15px 0;
-  background-color: #000000 !important; /* Black background with !important */
-  color: #00FF00 !important; /* Terminal green text color */
+  padding: 15px 0 !important;
+  background-color: #000000 !important;
+  color: #00FF00 !important;
 }
 
 footer a {
-  color: #00FF00 !important; 
-  text-decoration: none;
+  color: #00FF00 !important;
+  text-decoration: none !important;
 }
 
 footer a:hover {
-  text-decoration: underline;
+  text-decoration: underline !important;
 }
 
-
-/* Navbar specific styles with enforced background color */
+/* Navbar Specific Styles */
 .navbar {
-  background-color: rgba(31, 31, 31, 0.9) !important; /* Slightly darker semi-transparent with !important */
+  background-color: rgba(31, 31, 31, 0.9) !important;
   color: #00FF00 !important;
 }
 
 .navbar-brand,
 .navbar-nav .nav-link {
   color: #00FF00 !important;
-  font-weight: bold;
+  font-weight: bold !important;
 }
 
 .navbar-nav .nav-link:hover {
@@ -82,60 +81,64 @@ footer a:hover {
 }
 
 .navbar-toggler {
-  background-color: #00FF00 !important; /* Green color for toggler in mobile view */
+  background-color: #00FF00 !important;
 }
 
 .navbar-toggler-icon {
-  filter: invert(1) !important; /* Ensures the toggler icon is visible */
+  filter: invert(1) !important;
 }
 
-/* Active link color in the navbar */
+/* Active Link Styling */
 .navbar-nav .nav-item.active .nav-link,
 .navbar-nav .nav-link.active {
-  color: #00AA00 !important; /* Different green to highlight active links */
-  font-weight: bold;
-  border-bottom: 2px solid #00FF00 !important; /* Optional underline for active links */
+  color: #00AA00 !important;
+  font-weight: bold !important;
+  border-bottom: 2px solid #00FF00 !important;
 }
 
+/* Additional Styling */
 .terminal-green {
-  color: #00ff00; /* Terminal green color for specific elements */
+  color: #00FF00 !important;
 }
 
 .text-muted {
-  color: #00cc00; /* Slightly muted green for dates and secondary text */
+  color: #00CC00 !important; /* Slightly muted green for secondary text */
 }
 
+/* Conversation Logs */
 .convo-logs .list-group-item {
-  background-color: #333333; /* Dark background for list items */
-  border: 1px solid #555555; /* Border with dark grey for contrast */
-  color: #00ff00; /* Text color */
+  background-color: #333333 !important;
+  border: 1px solid #555555 !important;
+  color: #00FF00 !important;
 }
 
 .convo-logs .list-group-item:hover {
-  background-color: #444444; /* Slightly lighter on hover */
+  background-color: #444444 !important;
 }
 
+/* Danger Button */
 .btn-danger {
-  color: #ffffff; /* White text for delete button */
-  background-color: #ff3333; /* Red background for delete button */
-  border-color: #ff3333;
+  color: #FFFFFF !important;
+  background-color: #FF3333 !important;
+  border-color: #FF3333 !important;
 }
 
 .btn-danger:hover {
-  background-color: #cc0000; /* Darker red on hover */
-  border-color: #cc0000;
+  background-color: #CC0000 !important;
+  border-color: #CC0000 !important;
 }
 
+/* Pagination */
 .pagination .page-link {
-  background-color: #333333; /* Dark background for pagination */
-  color: #00ff00; /* Green text */
-  border: 1px solid #555555;
+  background-color: #333333 !important;
+  color: #00FF00 !important;
+  border: 1px solid #555555 !important;
 }
 
 .pagination .page-item.disabled .page-link {
-  color: #00cc00; /* Slightly muted green for disabled pagination items */
+  color: #00CC00 !important;
 }
 
 .pagination .page-link:hover {
-  background-color: #444444; /* Lighter dark on hover */
+  background-color: #444444 !important;
 }
