@@ -12,7 +12,7 @@
             <p class="text-left"><strong>From:</strong> {{ convo_log.from_user }}</p>
             <p class="text-left"><strong>To:</strong> {{ convo_log.to_users }}</p>
             <p class="text-left"><strong>Message:</strong> {{ convo_log.message }}</p>   
-            <a class="text-left" href="https://twitter.com/intent/tweet?text={{ convo_log.message|urlencode }}" target="_blank"> <i class="fab fa-twitter" style="font-size: 20px;"></i></a>                  
+            <p class="text-left"><a href="https://twitter.com/intent/tweet?text={{ convo_log.message|urlencode }}" target="_blank"> <i class="fab fa-twitter" style="font-size: 20px;"></i></a></p>                  
         </div>
       </div>
     </div>
