@@ -1,5 +1,5 @@
 body {
-  background-color: #343a40; /* Bootstrap's bg-dark color */
+  background-color: #000000; /* Bootstrap's bg-dark color */
   color: #00FF00; /* Terminal green color */
 }
 
@@ -10,30 +10,30 @@ body {
 }
 
 .content-container {
-  background-color: rgba(18, 18, 18, 0.8); /* Dark overlay for content readability */
+  background-color: rgba(0, 0, 0, 0.8); /* Dark overlay for content readability */
   padding: 20px;
   border-radius: 8px;
   color: #00FF00;
 }
 
 .btn-dark-custom {
-  background-color: #333;
-  border-color: #444;
+  background-color: #000000;
   color: #00FF00;
 }
 
-.btn-dark-custom:hover {
+.btn-dark-custom:hover {s
   background-color: #555;
   border-color: #666;
 }
 
 footer {
   padding: 15px 0;
+  background-color: #000000;
   color: #00FF00;
 }
 
 footer a {
-  color: #00FF00;
+  background-color: #000000; 
   text-decoration: none;
 }
 
