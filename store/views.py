@@ -168,8 +168,7 @@ def conversation_topics(request):
     return render(request, 'conversation_topics.html', {'topics': topics})
 
 @csrf_exempt
-@admin_required
-@api_view(['POST'])
+@admin_required 
 def create_conversation_topic(request):
     if request.method == 'POST':
         serializer = ConversationTopicSerializer(data=request.data)
