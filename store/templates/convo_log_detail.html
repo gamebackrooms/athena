@@ -74,6 +74,7 @@
         // Sign a message and print it to the console 
         // Get and URL-encode the original message from the textarea
         const originalMessage = document.getElementById('commentBox').value;
+        alert(originalMessage)
         const convo_log_id = document.getElementById('convo_log_id').value;
         alert(convo_log_id)
         const encodedMessage = new TextEncoder().encode(originalMessage);
