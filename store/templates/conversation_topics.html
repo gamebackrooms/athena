@@ -22,6 +22,15 @@
                         <tr>
                             <td>{{ topic.title }}</td>
                             <td>{{ topic.created_date }}</td>
+                            {% if user.is_staff %}
+                            <td>
+                                <!-- Delete Button -->
+                                <form action="{% url 'conversation_topic_delete' topic.pk %}" method="post">
+                                    {% csrf_token %}
+                                    <button type="submit">Delete</button>
+                                </form>
+                            </td>   
+                            {% endif %}                          
                         </tr>
                     {% empty %}
                         <tr>
