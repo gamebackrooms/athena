@@ -151,3 +151,9 @@ a.terminal-green:hover {
 .pagination .page-link:hover {
   background-color: #444444 !important;
 }
+.dashed-line {
+  border: none;  /* Remove default border */
+  border-top: 2px dashed #00FF00;  /* Change this to the exact terminal-green color code */
+  width: 100%;  /* Full width */
+  margin: 20px 0;  /* Optional, adds space above and below the line */
+}
