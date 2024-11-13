@@ -44,4 +44,24 @@
             </table>
 
             <!-- Pagination controls -->
-            <div class="pagination m
+            <div class="pagination mt-4">
+                {% if topics.has_previous %}
+                    <a href="?page=1">&laquo; First</a>
+                    <a href="?page={{ topics.previous_page_number }}">Previous</a>
+                {% endif %}
+
+                <span>Page {{ topics.number }} of {{ topics.paginator.num_pages }}</span>
+
+                {% if topics.has_next %}
+                    <a href="?page={{ topics.next_page_number }}">Next</a>
+                    <a href="?page={{ topics.paginator.num_pages }}">Last &raquo;</a>
+                {% endif %}
+            </div>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+</section>    
+
+{% endblock %}
