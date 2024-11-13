@@ -12,26 +12,31 @@ register = template.Library()
 
 @register.filter
 def elapsed_time(created_date):
+    # Calculate time difference
     elapsed = now() - created_date
     seconds = int(elapsed.total_seconds())
     
     if seconds < 60:
-        unit = "sec" if seconds == 1 else "secs"
-        return f"{seconds} {unit} ago"
+        return f"{seconds} seconds ago" if seconds != 1 else "1 second ago"
     
     minutes = seconds // 60
     if minutes < 60:
-        unit = "min" if minutes == 1 else "mins"
-        return f"{minutes} {unit} ago"
+        return f"{minutes} minutes ago" if minutes != 1 else "1 minute ago"
     
     hours = minutes // 60
     if hours < 24:
-        unit = "hr" if hours == 1 else "hrs"
-        return f"{hours} {unit} ago"
+        return f"{hours} hours ago" if hours != 1 else "1 hour ago"
     
     days = hours // 24
-    unit = "day" if days == 1 else "days"
-    return f"{days} {unit} ago"
+    if days < 30:
+        return f"{days} days ago" if days != 1 else "1 day ago"
+    
+    months = days // 30
+    if months < 12:
+        return f"{months} months ago" if months != 1 else "1 month ago"
+    
+    years = days // 365
+    return f"{years} years ago" if years != 1 else "1 year ago"
     
 @register.filter
 def format_timestamp(timestamp):
