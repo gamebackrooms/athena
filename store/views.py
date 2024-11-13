@@ -1237,15 +1237,20 @@ def verify_signature(request):
                     {"encoding": "jsonParsed"},
                 ],
             }
-            response = requests.post(url, json=payload, headers=headers)
 
-            try:
-                token_amount_str = response.json()["result"]["value"][0]["account"]["data"]["parsed"]["info"]["tokenAmount"]["uiAmount"]
-                print("Test next")
+            
+            # Request token accounts
+            response = requests.post(url, json=payload, headers=headers)
+            response_data = response.json()
+
+            # Check if there is a token account in the response
+            if response_data.get("result", {}).get("value"):
+                token_amount_str = response_data["result"]["value"][0]["account"]["data"]["parsed"]["info"]["tokenAmount"]["uiAmount"]
                 token_amount_float = float(token_amount_str)
-            except (KeyError, IndexError, TypeError, ValueError) as e:
-                token_amount_float = 0
-                print(f"An error occurred: {e}")
+            else:
+                token_amount_float = 0  # Default to 0 if no token account is found
+                print("No token account found for the given public key and token mint.")
+
 
             
             access_id = request.COOKIES.get('access_id')
