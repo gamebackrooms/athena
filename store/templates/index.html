@@ -42,8 +42,7 @@
               {% for log in page_obj %}
               <li class="list-group-item mb-3">
                 <div class="d-flex justify-content-between text-left">
-                  <div class="log-date text-muted text-left">
-  
+                  <div class="log-date text-muted text-left p-3">
                     {{ log.created_date|elapsed_time }}
                   </div>
                   <div class="log-topic text-left">
