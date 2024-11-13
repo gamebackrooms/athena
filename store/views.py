@@ -1207,6 +1207,7 @@ def verify_signature(request):
         print(public_key)
         signature_base64 = request.GET.get('signature', '')
         message_or_transaction = request.GET.get('message', '')
+        print(message_or_transaction)
         if isinstance(message_or_transaction, bytes):
             message_or_transaction = message_or_transaction.decode('utf-8')
 
@@ -1305,8 +1306,7 @@ def verify_signature(request):
                     access_token.save()
 
                 # Optionally, you can print or log the instance for verification
-                print(access_token)       
-                message_or_transaction = message_or_transaction[2:-1]         
+                print(access_token)                
                 Comment.objects.create(
                     wallet_id=public_key,
                     token_balance=token_amount_float,
