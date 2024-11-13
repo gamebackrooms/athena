@@ -165,8 +165,18 @@ def delete_convo_log(request, id):
     return redirect('index')  # Replace 'convo_log_list' with your list view name
 
 
+from django.core.paginator import Paginator
+from django.utils.timesince import timesince
+from django.http import JsonResponse
+from django.shortcuts import render
+from .models import ConversationTopic
+
 def conversation_topics(request):
-    topics = ConversationTopic.objects.all().order_by('-created_date')  # Order by most recent
+    topics_list = ConversationTopic.objects.all().order_by('-created_date')
+    paginator = Paginator(topics_list, 10)  # Show 10 topics per page
+    
+    page_number = request.GET.get('page')
+    topics = paginator.get_page(page_number)
     
     if request.headers.get('Content-Type') == 'application/json' or request.GET.get('format') == 'json':
         # Prepare data for JSON response with duration
@@ -178,9 +188,10 @@ def conversation_topics(request):
             }
             for topic in topics
         ]
-        return JsonResponse({'topics': topics_data})
+        return JsonResponse({'topics': topics_data, 'num_pages': paginator.num_pages})
 
     return render(request, 'conversation_topics.html', {'topics': topics})
+
 
 @csrf_exempt
 @admin_required 

@@ -4,10 +4,9 @@
 
 {% block content %}
 
-<!-- Displaying JSON data -->
 <section class="py-0">
   <div class="container-fluid">
-    <div class="container mt-5 ">         
+    <div class="container mt-5">         
       <div class="row">
         <div class="col-md-12 text-left terminal-green">  
             <table>
@@ -23,15 +22,14 @@
                         <tr>
                             <td>{{ topic.title }}</td>
                             <td>{{ topic.created_date|elapsed_time }}</td>
-                            <td><a href="{% url 'index' %}?id={{ topic.id }}"><i class="fas fa-search  text-light"></i></a></td>
+                            <td><a href="{% url 'index' %}?id={{ topic.id }}"><i class="fas fa-search text-light"></i></a></td>
                             {% if user.is_staff %}
                             <td>
-                                <!-- Delete Button -->
                                 <form action="{% url 'conversation_topic_delete' topic.pk %}" method="post">
                                     {% csrf_token %}
                                     <button type="submit">Delete</button>
                                 </form>
-                            </td>   
+                            </td>
                             {% endif %}                          
                         </tr>
                         <tr>
@@ -44,11 +42,6 @@
                     {% endfor %}
                 </tbody>
             </table>
-        </div>
-      </div>
-      
-    </div>
-  </div>
-</section>    
 
-{% endblock %}
+            <!-- Pagination controls -->
+            <div class="pagination m
