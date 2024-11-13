@@ -13,9 +13,14 @@
             <!-- <p class="text-left"><strong>To:</strong> {{ convo_log.to_users }}</p> -->
             <p class="text-left terminal-green"><strong>Message:</strong> {{ convo_log.message }}</p>   
             <!-- Display Upvote count with a Bootstrap badge -->
-            <p class="text-left terminal-green"><strong>Upvotes:</strong> 
-              <span class="badge bg-primary">{{ convo_log.upvote_count }}</span>
-            </p> <!-- Display current upvote count with a badge -->
+            <!-- Display Upvote button with a Bootstrap badge -->
+            <!-- Display Upvote button with a Bootstrap badge -->
+            <p class="text-left terminal-green">
+              <a href="{% url 'upvote_convo_log' log_id=convo_log.id %}" class="btn btn-primary">
+                  Upvote 
+                  <span class="badge bg-light text-dark ms-2">{{ convo_log.upvote_count }}</span>
+              </a>
+            </p> <!-- Button with badge showing upvote count -->
 
             <p class="text-left terminal-green"><strong>Upvotes:</strong> {{ convo_log.upvote_count }}</p>  <!-- Display current upvote count -->
             <p class="text-left terminal-green"><a href="https://twitter.com/intent/tweet?text={{ convo_log.message|urlencode }}" target="_blank"> <i class="fab fa-twitter" style="font-size: 20px;"></i></a></p>                  
