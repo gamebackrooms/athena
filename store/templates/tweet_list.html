@@ -9,7 +9,7 @@
   <div class="container-fluid">
     <div class="container mt-5 text-light">         
       <div class="row">
-        <div class="col-md-12 text-center">  
+        <div class="col-md-6 text-center">  
             <ul>
                 {% for tweet in tweets %}
                     <li>{{ tweet.content }} - {{ tweet.created_at }} - Processed: {{ tweet.is_processed }}
