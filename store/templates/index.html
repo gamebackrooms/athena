@@ -65,12 +65,12 @@
               <ul class="pagination justify-content-center mt-3">
                 {% if page_obj.has_previous %}
                   <li class="page-item">
-                    <a class="page-link" href="?page=1{% if topic_id %}&id={{ topic_id }}{% endif %}" aria-label="First">
+                    <a class="page-link" href="?page=1{% if topic_id %}&id={{ topic_id }}{% endif %}{% if search_query %}&search={{ search_query }}{% endif %}" aria-label="First">
                       <span aria-hidden="true">&laquo;&laquo;</span>
                     </a>
                   </li>
                   <li class="page-item">
-                    <a class="page-link" href="?page={{ page_obj.previous_page_number }}{% if topic_id %}&id={{ topic_id }}{% endif %}" aria-label="Previous">
+                    <a class="page-link" href="?page={{ page_obj.previous_page_number }}{% if topic_id %}&id={{ topic_id }}{% endif %}{% if search_query %}&search={{ search_query }}{% endif %}" aria-label="Previous">
                       <span aria-hidden="true">&laquo;</span>
                     </a>
                   </li>
@@ -80,18 +80,19 @@
                 </li>
                 {% if page_obj.has_next %}
                   <li class="page-item">
-                    <a class="page-link" href="?page={{ page_obj.next_page_number }}{% if topic_id %}&id={{ topic_id }}{% endif %}" aria-label="Next">
+                    <a class="page-link" href="?page={{ page_obj.next_page_number }}{% if topic_id %}&id={{ topic_id }}{% endif %}{% if search_query %}&search={{ search_query }}{% endif %}" aria-label="Next">
                       <span aria-hidden="true">&raquo;</span>
                     </a>
                   </li>
                   <li class="page-item">
-                    <a class="page-link" href="?page={{ page_obj.paginator.num_pages }}{% if topic_id %}&id={{ topic_id }}{% endif %}" aria-label="Last">
+                    <a class="page-link" href="?page={{ page_obj.paginator.num_pages }}{% if topic_id %}&id={{ topic_id }}{% endif %}{% if search_query %}&search={{ search_query }}{% endif %}" aria-label="Last">
                       <span aria-hidden="true">&raquo;&raquo;</span>
                     </a>
                   </li>
                 {% endif %}
               </ul>
             </nav>
+            
 
           </div>
         </div>

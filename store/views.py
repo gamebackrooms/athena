@@ -565,6 +565,8 @@ def index(request):
 
     topic_id = request.GET.get('id')  # Get 'id' from the query string
 
+    search_query = request.GET.get('search', '')
+
     if topic_id:
         try:
             # Use the topic_id to get the ConversationTopic title
@@ -573,6 +575,8 @@ def index(request):
             convo_logs = ConvoLog.objects.filter(topic=topic.title).order_by('-created_date')
         except ConversationTopic.DoesNotExist:
             convo_logs = ConvoLog.objects.all().order_by('-created_date')
+    elif search_query:
+        convo_logs = convo_logs.filter(message__icontains=search_query)            
     else:
         convo_logs = ConvoLog.objects.all().order_by('-created_date')
 
@@ -593,7 +597,8 @@ def index(request):
         'latest_marketing_content': latest_marketing_content,  # Add this line
         'form': form,
         'page_obj': page_obj,
-        'topic_id': topic_id, 
+        'topic_id': topic_id,
+        'search_query': search_query, 
     }
     response = render(request, 'index.html', context)
     response.set_cookie('access_id', access_id)
