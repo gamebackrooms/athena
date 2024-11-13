@@ -43,20 +43,56 @@
                 </tbody>
             </table>
 
-            <!-- Pagination controls -->
-            <div class="pagination mt-4">
-                {% if topics.has_previous %}
-                    <a href="?page=1">&laquo; First</a>
-                    <a href="?page={{ topics.previous_page_number }}">Previous</a>
-                {% endif %}
-
-                <span>Page {{ topics.number }} of {{ topics.paginator.num_pages }}</span>
-
-                {% if topics.has_next %}
-                    <a href="?page={{ topics.next_page_number }}">Next</a>
-                    <a href="?page={{ topics.paginator.num_pages }}">Last &raquo;</a>
-                {% endif %}
+            <div class="pagination mt-4 d-flex justify-content-center">
+                <nav aria-label="Page navigation">
+                    <ul class="pagination">
+                        {% if topics.has_previous %}
+                            <li class="page-item">
+                                <a class="page-link" href="?page=1" aria-label="First">
+                                    <span aria-hidden="true">&laquo; First</span>
+                                </a>
+                            </li>
+                            <li class="page-item">
+                                <a class="page-link" href="?page={{ topics.previous_page_number }}" aria-label="Previous">
+                                    <span aria-hidden="true">Previous</span>
+                                </a>
+                            </li>
+                        {% else %}
+                            <li class="page-item disabled">
+                                <span class="page-link">&laquo; First</span>
+                            </li>
+                            <li class="page-item disabled">
+                                <span class="page-link">Previous</span>
+                            </li>
+                        {% endif %}
+            
+                        <li class="page-item disabled">
+                            <span class="page-link">Page {{ topics.number }} of {{ topics.paginator.num_pages }}</span>
+                        </li>
+            
+                        {% if topics.has_next %}
+                            <li class="page-item">
+                                <a class="page-link" href="?page={{ topics.next_page_number }}" aria-label="Next">
+                                    <span aria-hidden="true">Next</span>
+                                </a>
+                            </li>
+                            <li class="page-item">
+                                <a class="page-link" href="?page={{ topics.paginator.num_pages }}" aria-label="Last">
+                                    <span aria-hidden="true">Last &raquo;</span>
+                                </a>
+                            </li>
+                        {% else %}
+                            <li class="page-item disabled">
+                                <span class="page-link">Next</span>
+                            </li>
+                            <li class="page-item disabled">
+                                <span class="page-link">Last &raquo;</span>
+                            </li>
+                        {% endif %}
+                    </ul>
+                </nav>
             </div>
+            
         </div>
       </div>
       
