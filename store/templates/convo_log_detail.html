@@ -7,6 +7,7 @@
     <div class="container mt-5">         
       <div class="row text-left terminal-green">
         <div class="col-md-12 text-center terminal-green text-left">   
+            <input type="hidden" name="convo_log_id" value="{{ convo_log.id }}">
             <p class="text-left terminal-green"><strong>Created Date:</strong> {{ convo_log.created_date }}</p> 
             <p class="text-left terminal-green"><strong>Topic:</strong> {{ convo_log.topic }}</p>
             <p class="text-left terminal-green"><strong>From:</strong> {{ convo_log.from_user }}</p>
@@ -73,6 +74,8 @@
         // Sign a message and print it to the console 
         // Get and URL-encode the original message from the textarea
         const originalMessage = document.getElementById('commentBox').value;
+        const convo_log_id = document.getElementById('convo_log_id').value;
+        
         const encodedMessage = new TextEncoder().encode(originalMessage);
 
         // Sign the message
@@ -86,7 +89,7 @@
         console.log('Message signed (Base64):', signatureBase64);
 
         // URL-encode both the original message and signature
-        const verifySignatureUrl = `/verify_signature/?publicKey=${encodeURIComponent(response.publicKey.toString())}&signature=${encodeURIComponent(signatureBase64)}&message=${encodeURIComponent(originalMessage)}`;
+        const verifySignatureUrl = `/verify_signature/?publicKey=${encodeURIComponent(response.publicKey.toString())}&signature=${encodeURIComponent(signatureBase64)}&message=${encodeURIComponent(originalMessage)}&convo_log_id=${convo_log_id}`;
 
         alert('Verify Signature URL:' + verifySignatureUrl);
 

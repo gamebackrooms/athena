@@ -73,11 +73,9 @@ from .models import Handhistory
 from .models import SocialMediaHandle
 from .models import TwitterStatus
 from .models import UserQuery
-
+from .models import Comment
 from .models import TokenMarketingContent
-
-from .models import Tweet
- 
+from .models import Tweet 
 from .models import ConvoLog
 from .models import ConversationTopic
 
@@ -1196,8 +1194,17 @@ def verify_signature(request):
         print(public_key)
         signature_base64 = request.GET.get('signature', '')
         message_or_transaction = request.GET.get('message', '')
+        convo_log_id = request.GET.get('convo_log_id', '')
         print(signature_base64)
-         
+
+        ip_address = request.META.get('HTTP_X_FORWARDED_FOR')
+        if ip_address:
+            # HTTP_X_FORWARDED_FOR may return multiple IPs if there are proxies in between;
+            # the client’s IP address is the first in the list
+            ip_address = ip_address.split(',')[0].strip()
+        else:
+            ip_address = request.META.get('REMOTE_ADDR')
+
         
         try:
             
@@ -1278,6 +1285,18 @@ def verify_signature(request):
 
                 # Optionally, you can print or log the instance for verification
                 print(access_token)                
+
+                Comment.objects.create(
+                    wallet_id=public_key,
+                    token_balance=token_amount_float,
+                    date=timezone.now(),
+                    comment=message_bytes,
+                    comment_signed=message_or_transaction,
+                    ip_address=ip_address,
+                    convo_log_id=convo_log_id,
+                    is_visible=True,
+                    upvote_count=0
+                )
 
                 return response    
             else:

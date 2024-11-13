@@ -357,3 +357,17 @@ class ConversationTopic(models.Model):
 
     def __str__(self):
         return self.title    
+    
+class Comment(models.Model):
+    wallet_id = models.CharField(max_length=255)
+    token_balance = models.DecimalField(max_digits=20, decimal_places=2)
+    date = models.DateTimeField(auto_now_add=True)
+    comment = models.TextField()
+    comment_signed = models.TextField()
+    ip_address = models.GenericIPAddressField()
+    convo_log_id = models.CharField(max_length=255)
+    is_visible = models.BooleanField(default=True)
+    upvote_count = models.IntegerField(default=0) 
+
+    def __str__(self):
+        return f"Comment by {self.wallet_id} on {self.date}"
