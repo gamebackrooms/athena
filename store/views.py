@@ -575,11 +575,12 @@ def index(request):
             convo_logs = ConvoLog.objects.filter(topic=topic.title).order_by('-created_date')
         except ConversationTopic.DoesNotExist:
             convo_logs = ConvoLog.objects.all().order_by('-created_date')
-    elif search_query:
-        convo_logs = convo_logs.filter(message__icontains=search_query)            
     else:
         convo_logs = ConvoLog.objects.all().order_by('-created_date')
 
+    # Filter by the search query if it exists
+    if search_query:
+        convo_logs = convo_logs.filter(message__icontains=search_query)
 
     # Set up pagination for convo_logs
     paginator = Paginator(convo_logs, 10)  # Show 10 logs per page
@@ -597,8 +598,8 @@ def index(request):
         'latest_marketing_content': latest_marketing_content,  # Add this line
         'form': form,
         'page_obj': page_obj,
-        'topic_id': topic_id,
-        'search_query': search_query, 
+        'topic_id': topic_id, 
+        'search_query': search_query,
     }
     response = render(request, 'index.html', context)
     response.set_cookie('access_id', access_id)
