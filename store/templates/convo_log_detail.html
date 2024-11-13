@@ -99,8 +99,8 @@
                     throw new Error('Failed to verify signature.');
                 }
                 const result = await response.json();
-                alert('Verification Result: ' + result);
-
+                //alert('Verification Result: ' + result);
+                alert('Verification Result: ' + JSON.stringify(result, null, 2)); 
                 // Assuming result.valid is a boolean indicating verification status
                 if (result.valid) {
                     // Change text color to green
