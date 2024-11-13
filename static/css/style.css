@@ -159,4 +159,5 @@ a.terminal-green:hover {
 }
 .bg-custom-green {
   background-color: #28a745;
+  color: #FFFFFF !important;
 }
