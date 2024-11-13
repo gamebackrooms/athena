@@ -142,8 +142,8 @@ def upvote_convo_log(request, log_id):
     convo_log.upvote_count += 1
     convo_log.save()  # Save the updated upvote count
     
-    # Redirect to the same page or another view as needed
-    return redirect('index')  # Redirecting to the index page (you can customize this)
+    # Redirect back to the convo_log_detail page after the upvote
+    return redirect('convo_log_detail', pk=convo_log.id)
 
 @admin_required
 @require_POST
