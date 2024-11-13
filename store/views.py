@@ -578,7 +578,7 @@ def index(request):
 
 
     # Set up pagination for convo_logs
-    paginator = Paginator(convo_logs, 10)  # Show 10 logs per page
+    paginator = Paginator(convo_logs, 25)  # Show 10 logs per page
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
 
