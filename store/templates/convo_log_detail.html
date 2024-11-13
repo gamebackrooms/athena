@@ -71,6 +71,7 @@
         document.getElementById('walletAddress').textContent = `Connected wallet: ${response.publicKey.toString()}`;
 
         // Sign a message and print it to the console
+        alert(document.getElementById('commentBox').value);
         const message = new TextEncoder().encode(document.getElementById('commentBox').value);
 
         const signedMessage = await window.solana.signMessage(message);
