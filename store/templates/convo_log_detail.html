@@ -38,7 +38,7 @@
 
             <!-- Display Comments -->
             <hr class="dashed-line mt-4">
-            <h3 class="text-left terminal-green">Comments</h3>
+            <h3 class="terminal-green">Comments</h3>
             {% for comment in comments %}
               <div class="comment-box mt-3">
                 <p><strong>{{ comment.wallet_id }}</strong> - <small>{{ comment.date }}</small></p>
@@ -155,7 +155,7 @@
         console.log(`Token balance: ${tokenBalance}`);
         document.getElementById('tokenBalance').textContent = `Token balance: ${tokenBalance}`;
         window.location.reload();
-        
+
       } catch (error) {
         console.error('Error connecting to Phantom wallet:', error);
 
