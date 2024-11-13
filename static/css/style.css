@@ -104,7 +104,7 @@ footer a:hover {
   color: #00FF00 !important;
 }
 .terminal-green:hover {
-  color: #90ee90; /* Light green on hover */
+  color: #ffffff; /* Light green on hover */
   text-decoration: none; /* Optional: Remove underline */
 }
 .text-muted {
