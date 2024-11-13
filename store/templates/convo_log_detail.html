@@ -31,7 +31,7 @@
                 <textarea class="form-control" id="commentBox" rows="3" placeholder="Enter your comment here"></textarea>
               </div>
               <p><div id="walletAddress"></div></p>
-              <p><button id="connectButton" class="btn btn-primary">Post</button></p>
+              <p><button id="connectButton" class="btn btn-success">Post</button></p>
               <p id="tokenBalance">Token balance: </p>
               <p>CA: <a href="https://www.pump.fun/{{ MY_TOKEN }}">{{ MY_TOKEN }}</a></p>
             </div>
@@ -44,7 +44,7 @@
                 <p><strong>{{ comment.wallet_id }}</strong> - <small>{{ comment.date }}</small></p>
                 <p class="terminal-green text-left">{{ comment.comment }}</p>
                 <p class="text-right">
-                  <span class="badge bg-primary">Upvotes: {{ comment.upvote_count }}</span>
+                  <span class="badge bg-success">Upvotes: {{ comment.upvote_count }}</span>
                 </p>
                 <p class="terminal-green text-left">Token Balance: {{ comment.token_balance }}</p>                
               </div>
