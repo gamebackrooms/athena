@@ -1311,7 +1311,7 @@ def verify_signature(request):
                     token_balance=token_amount_float,
                     date=timezone.now(),
                     comment=message_bytes,
-                    comment_signed=message_or_transaction,
+                    comment_signed=message_bytes,
                     ip_address=ip_address,
                     convo_log_id=convo_log_id,
                     is_visible=True,
