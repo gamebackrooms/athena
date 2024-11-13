@@ -1203,6 +1203,9 @@ def verify_signature(request):
         print(public_key)
         signature_base64 = request.GET.get('signature', '')
         message_or_transaction = request.GET.get('message', '')
+        if isinstance(message_or_transaction, bytes):
+            message_or_transaction = message_or_transaction.decode('utf-8')
+
         convo_log_id = request.GET.get('convo_log_id', '')
         print(signature_base64)
 
