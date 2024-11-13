@@ -169,19 +169,18 @@ def conversation_topics(request):
     topics = ConversationTopic.objects.all().order_by('-created_date')  # Order by most recent
     
     if request.headers.get('Content-Type') == 'application/json' or request.GET.get('format') == 'json':
-        # Prepare data for JSON response
+        # Prepare data for JSON response with duration
         topics_data = [
             {
                 'id': topic.id,
                 'title': topic.title,
-                'created_date': topic.created_date, 
+                'created_date': timesince(topic.created_date) + ' ago',
             }
             for topic in topics
         ]
         return JsonResponse({'topics': topics_data})
 
     return render(request, 'conversation_topics.html', {'topics': topics})
-
 
 @csrf_exempt
 @admin_required 
