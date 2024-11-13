@@ -38,11 +38,11 @@
 
             <!-- Display Comments -->
             <hr class="dashed-line mt-4">
-            <h3 class="terminal-green">Comments</h3>
+            <h3 class="terminal-green text-left">Comments</h3>
             {% for comment in comments %}
-              <div class="comment-box mt-3">
+              <div class="comment-box mt-3 text-left">
                 <p><strong>{{ comment.wallet_id }}</strong> - <small>{{ comment.date }}</small></p>
-                <p>{{ comment.comment }}</p>
+                <p class="terminal-green text-left">{{ comment.comment }}</p>
                 <p class="text-right">
                   <span class="badge bg-primary">Upvotes: {{ comment.upvote_count }}</span>
                 </p>
