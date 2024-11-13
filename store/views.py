@@ -602,7 +602,7 @@ def index(request):
     for log in page_obj:
         # Calculate the elapsed time in seconds
         elapsed_time = now() - log.created_date
-        log.elapsed_time = elapsed_time.total_seconds()
+        log.elapsed_time = int(elapsed_time.total_seconds())
 
     form = TweetForm()
     
