@@ -20,7 +20,7 @@
                 <tbody>
                     {% for topic in topics %}
                         <tr>
-                            <td>{{ topic.title }} <a href="{% url 'index' %}?id={{ topic.id }}"><i class="fas fa-search  terminal-green"></i></a></td>
+                            <td>{{ topic.title }} <a href="{% url 'index' %}?id={{ topic.id }}"><i class="fas fa-search  text-light"></i></a></td>
                             <td>{{ topic.created_date }}</td>
                             {% if user.is_staff %}
                             <td>
