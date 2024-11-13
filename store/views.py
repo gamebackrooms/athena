@@ -237,6 +237,7 @@ def convo_log_detail(request, pk):
     return render(request, 'convo_log_detail.html', {
         'convo_log': convo_log,
         'comments': comments,
+        'MY_TOKEN': MY_TOKEN,
     })
 
 def user_queries_view(request):
