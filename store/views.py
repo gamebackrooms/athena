@@ -233,7 +233,7 @@ def get_user_query(request, query_id):
  
 def convo_log_detail(request, pk):
     convo_log = get_object_or_404(ConvoLog, pk=pk)
-    comments = Comment.objects.filter(convo_log_id=convo_log.id, is_visible=True).order_by('-date')
+    comments = Comment.objects.filter(convo_log_id=str(convo_log.id), is_visible=True).order_by('-date')
     return render(request, 'convo_log_detail.html', {
         'convo_log': convo_log,
         'comments': comments,
