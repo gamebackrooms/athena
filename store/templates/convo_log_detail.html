@@ -24,6 +24,22 @@
             </p> <!-- Button with badge showing upvote count -->
             <hr class="dashed-line mt-4">
             <p class="text-left terminal-green"><a href="https://twitter.com/intent/tweet?text={{ convo_log.message|urlencode }}" target="_blank"> <i class="fab fa-twitter" style="font-size: 20px;"></i></a></p>                  
+            <hr class="dashed-line mt-4">
+            
+            <div class="container">
+              <!-- Comment Box -->
+              <div class="form-group">
+                <label for="commentBox">Leave a Comment</label>
+                <textarea class="form-control" id="commentBox" rows="3" placeholder="Enter your comment here"></textarea>
+              </div>
+            
+              <!-- Existing Content -->
+              <p><div id="walletAddress"></div></p>
+              <p><button id="connectButton" class="btn btn-primary">Post</button></p>
+              <p id="tokenBalance">Pump Fun Club Token balance: </p>
+              <p>Pump Fun Club CA: <a href="https://www.pump.fun/DF2LXZ9msqFihobc8MVMo8fL7zPfLjJbuNTR1JMCpump">DF2LXZ9msqFihobc8MVMo8fL7zPfLjJbuNTR1JMCpump</a></p>
+            </div>
+            
         </div>
       </div>
     </div>
