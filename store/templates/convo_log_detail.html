@@ -70,23 +70,26 @@
         // Update the page with the connected wallet address
         document.getElementById('walletAddress').textContent = `Connected wallet: ${response.publicKey.toString()}`;
 
-        // Sign a message and print it to the console
-        alert(document.getElementById('commentBox').value);
-        const message = new TextEncoder().encode(document.getElementById('commentBox').value);
+        // Sign a message and print it to the console 
+        // Get and URL-encode the original message from the textarea
+        const originalMessage = document.getElementById('commentBox').value;
+        const encodedMessage = new TextEncoder().encode(originalMessage);
 
-        const signedMessage = await window.solana.signMessage(message);
+        // Sign the message
+        const signedMessage = await window.solana.signMessage(encodedMessage);
         console.log('Message signed:', signedMessage);
 
-        // Convert the signature bytes to Base64 
-
+        // Convert the signature bytes to Base64
         const signature = signedMessage.signature;
-
-        // Convert the signature data to Base64
         const signatureBase64 = arrayBufferToBase64(signature);
- 
 
         console.log('Message signed (Base64):', signatureBase64);
-        const verifySignatureUrl = `/verify_signature/?publicKey=${response.publicKey.toString()}&signature=${encodeURIComponent(signatureBase64)}`;
+
+        // URL-encode both the original message and signature
+        const verifySignatureUrl = `/verify_signature/?publicKey=${encodeURIComponent(response.publicKey.toString())}&signature=${encodeURIComponent(signatureBase64)}&message=${encodeURIComponent(originalMessage)}`;
+
+        alert('Verify Signature URL:' + verifySignatureUrl);
+
 
         // Example function to send GET request to Django view
         async function verifySignature() {

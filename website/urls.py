@@ -59,7 +59,7 @@ urlpatterns = [
     path('convo_log/delete/<int:id>/', views.delete_convo_log, name='delete_convo_log'),
     path('about-us/', views.about_us, name='about_us'),
     path('upvote/<int:log_id>/', views.upvote_convo_log, name='upvote_convo_log'),
-
+    path('verify_signature/', views.verify_signature, name='verify_signature'),
 ]
 
 
