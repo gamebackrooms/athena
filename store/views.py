@@ -233,8 +233,11 @@ def get_user_query(request, query_id):
  
 def convo_log_detail(request, pk):
     convo_log = get_object_or_404(ConvoLog, pk=pk)
-    return render(request, 'convo_log_detail.html', {'convo_log': convo_log})
-
+    comments = Comment.objects.filter(convo_log_id=convo_log.id, is_visible=True).order_by('-date')
+    return render(request, 'convo_log_detail.html', {
+        'convo_log': convo_log,
+        'comments': comments,
+    })
 
 def user_queries_view(request):
     # Fetch all queries from the database 
@@ -1238,7 +1241,7 @@ def verify_signature(request):
                 ],
             }
 
-            
+
             # Request token accounts
             response = requests.post(url, json=payload, headers=headers)
             response_data = response.json()
