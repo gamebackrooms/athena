@@ -13,14 +13,20 @@ register = template.Library()
 @register.filter
 def elapsed_time(created_date):
     elapsed = now() - created_date
-    seconds = elapsed.total_seconds()
+    seconds = int(elapsed.total_seconds())
     
     if seconds < 60:
-        return f"{int(seconds)} seconds ago"
-    elif seconds < 3600:
-        return f"{int(seconds // 60)} minutes ago"
-    else:
-        return f"{int(seconds // 3600)} hours ago"
+        unit = "sec" if seconds == 1 else "secs"
+        return f"{seconds} {unit} ago"
+    
+    minutes = seconds // 60
+    if minutes < 60:
+        unit = "min" if minutes == 1 else "mins"
+        return f"{minutes} {unit} ago"
+    
+    hours = minutes // 60
+    unit = "hr" if hours == 1 else "hrs"
+    return f"{hours} {unit} ago"
     
 @register.filter
 def format_timestamp(timestamp):
