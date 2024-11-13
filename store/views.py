@@ -239,6 +239,10 @@ def convo_log_detail(request, pk):
         is_visible=True
     ).order_by('-token_balance', '-date')
 
+    for comment in comments:
+        if isinstance(comment.comment, bytes):
+            comment.comment = comment.comment.decode('utf-8')
+    
     return render(request, 'convo_log_detail.html', {
         'convo_log': convo_log,
         'comments': comments,
