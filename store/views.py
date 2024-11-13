@@ -562,8 +562,21 @@ def index(request):
 
     latest_marketing_content = None
 
-    convo_logs = ConvoLog.objects.all().order_by('-created_date')
-    
+
+    topic_id = request.GET.get('id')  # Get 'id' from the query string
+
+    if topic_id:
+        try:
+            # Use the topic_id to get the ConversationTopic title
+            topic = ConversationTopic.objects.get(id=topic_id)
+            # Filter ConvoLogs by topic title
+            convo_logs = ConvoLog.objects.filter(topic=topic.title).order_by('-created_date')
+        except ConversationTopic.DoesNotExist:
+            convo_logs = ConvoLog.objects.all().order_by('-created_date')
+    else:
+        convo_logs = ConvoLog.objects.all().order_by('-created_date')
+
+
     # Set up pagination for convo_logs
     paginator = Paginator(convo_logs, 10)  # Show 10 logs per page
     page_number = request.GET.get('page')
@@ -580,6 +593,7 @@ def index(request):
         'latest_marketing_content': latest_marketing_content,  # Add this line
         'form': form,
         'page_obj': page_obj,
+        'topic_id': topic_id, 
     }
     response = render(request, 'index.html', context)
     response.set_cookie('access_id', access_id)
