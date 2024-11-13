@@ -25,8 +25,13 @@ def elapsed_time(created_date):
         return f"{minutes} {unit} ago"
     
     hours = minutes // 60
-    unit = "hr" if hours == 1 else "hrs"
-    return f"{hours} {unit} ago"
+    if hours < 24:
+        unit = "hr" if hours == 1 else "hrs"
+        return f"{hours} {unit} ago"
+    
+    days = hours // 24
+    unit = "day" if days == 1 else "days"
+    return f"{days} {unit} ago"
     
 @register.filter
 def format_timestamp(timestamp):
