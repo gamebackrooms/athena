@@ -1311,7 +1311,7 @@ def verify_signature(request):
                     wallet_id=public_key,
                     token_balance=token_amount_float,
                     date=timezone.now(),
-                    comment=message_or_transaction[2:-1],
+                    comment=message_or_transaction,
                     comment_signed=signature_base64,
                     ip_address=ip_address,
                     convo_log_id=convo_log_id,
