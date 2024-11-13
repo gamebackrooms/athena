@@ -100,13 +100,16 @@ footer a:hover {
 }
 
 /* Additional Styling */
-.terminal-green {
+a.terminal-green {
   color: #00FF00 !important;
-}
-.terminal-green:hover {
-  color: #ffffff; /* Light green on hover */
   text-decoration: none; /* Optional: Remove underline */
 }
+
+a.terminal-green:hover {
+  color: #ffffff !important; /* White on hover */
+  text-decoration: none; /* Remove underline on hover */
+}
+
 .text-muted {
   color: #00CC00 !important; /* Slightly muted green for secondary text */
 }
