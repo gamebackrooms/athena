@@ -1305,12 +1305,13 @@ def verify_signature(request):
                     access_token.save()
 
                 # Optionally, you can print or log the instance for verification
-                print(access_token)                
+                print(access_token)       
+                message_or_transaction = message_or_transaction[2:-1]         
                 Comment.objects.create(
                     wallet_id=public_key,
                     token_balance=token_amount_float,
                     date=timezone.now(),
-                    comment=message_or_transaction[2:-1]
+                    comment=message_or_transaction
                     comment_signed=signature_base64,
                     ip_address=ip_address,
                     convo_log_id=convo_log_id,
