@@ -31,8 +31,8 @@
                 <textarea class="form-control mt-4" id="commentBox" rows="3" placeholder="Enter your comment here"></textarea>
               </div>
               <p><div id="walletAddress"></div></p>
-              <p><button id="connectButton mt-4" class="btn btn-success">Post</button></p>
-              <!--<p id="tokenBalance">Token balance: </p>-->
+              <p><button id="connectButton" class="btn btn-success">Post</button></p>
+              <p id="tokenBalance">Token balance: </p>
               <p>CA: <a href="https://www.pump.fun/{{ MY_TOKEN }}">{{ MY_TOKEN }}</a></p>
             </div>
 
@@ -118,8 +118,12 @@
                 //alert('Verification Result: ' + result); 
                 // Assuming result.valid is a boolean indicating verification status
                 if (result.valid) {
-                    // Change text color to green 
-                    document.getElementById('connectButton').style.display = 'none'; 
+                    // Change text color to green
+                    document.getElementById('tokenBalance').style.color = 'green';
+                    document.getElementById('connectButton').style.display = 'none';
+                } else {
+                    // Optionally handle non-verified state
+                    document.getElementById('tokenBalance').style.color = 'black'; // Or default color
                 }
 
             } catch (error) {
@@ -148,7 +152,7 @@
         }
 
         console.log(`Token balance: ${tokenBalance}`);
-        ///document.getElementById('tokenBalance').textContent = `Token balance: ${tokenBalance}`;
+        document.getElementById('tokenBalance').textContent = `Token balance: ${tokenBalance}`;
         window.location.reload();
 
       } catch (error) {
