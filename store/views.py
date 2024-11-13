@@ -134,6 +134,17 @@ def admin_required(view_func):
 def about_us(request):
     return render(request, 'about_us.html')
 
+def upvote_convo_log(request, log_id):
+    # Get the ConvoLog object or return a 404 error if it doesn't exist
+    convo_log = get_object_or_404(ConvoLog, id=log_id)
+    
+    # Increment the upvote count by 1
+    convo_log.upvote_count += 1
+    convo_log.save()  # Save the updated upvote count
+    
+    # Redirect to the same page or another view as needed
+    return redirect('index')  # Redirecting to the index page (you can customize this)
+
 @admin_required
 @require_POST
 def delete_conversation_topic(request, pk):

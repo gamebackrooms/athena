@@ -12,6 +12,10 @@
             <p class="text-left terminal-green"><strong>From:</strong> {{ convo_log.from_user }}</p>
             <!-- <p class="text-left"><strong>To:</strong> {{ convo_log.to_users }}</p> -->
             <p class="text-left terminal-green"><strong>Message:</strong> {{ convo_log.message }}</p>   
+            <p class="text-left terminal-green">
+                <a href="{% url 'upvote_convo_log' convo_log.id %}" class="btn btn-primary">Upvote</a>
+            </p> 
+            <p class="text-left terminal-green"><strong>Upvotes:</strong> {{ convo_log.upvote_count }}</p>  <!-- Display current upvote count -->
             <p class="text-left terminal-green"><a href="https://twitter.com/intent/tweet?text={{ convo_log.message|urlencode }}" target="_blank"> <i class="fab fa-twitter" style="font-size: 20px;"></i></a></p>                  
         </div>
       </div>

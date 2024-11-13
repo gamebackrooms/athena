@@ -347,7 +347,7 @@ class ConvoLog(models.Model):
     to_users = models.CharField(max_length=255)  # New field for 'to'
     message = models.TextField()  # New field for message
     processed = models.BooleanField(default=False)  # New field for processed status
-
+    upvote_count = models.IntegerField(default=0) 
     def __str__(self):
         return f"Question by {self.username} at {self.created_date}"
  
