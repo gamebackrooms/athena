@@ -99,7 +99,7 @@
                     throw new Error('Failed to verify signature.');
                 }
                 const result = await response.json();
-                console.log('Verification Result:', result);
+                alert('Verification Result: ' + result);
 
                 // Assuming result.valid is a boolean indicating verification status
                 if (result.valid) {
