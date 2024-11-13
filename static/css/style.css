@@ -157,3 +157,6 @@ a.terminal-green:hover {
   width: 100%;  /* Full width */
   margin: 20px 0;  /* Optional, adds space above and below the line */
 }
+.bg-custom-green {
+  background-color: #28a745;
+}
