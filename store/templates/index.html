@@ -45,7 +45,7 @@
                   <div class="log-date text-muted text-left">
                     {% with log.elapsed_time as elapsed %}
                       {% if elapsed < 60 %}
-                          {{ elapsed|int }} seconds ago
+                          {{ elapsed }} seconds ago
                       {% elif elapsed < 3600 %}
                           {{ elapsed|divisibleby:60 }} minutes ago
                       {% else %}
