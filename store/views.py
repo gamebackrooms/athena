@@ -133,6 +133,9 @@ def admin_required(view_func):
 def about_us(request):
     return render(request, 'about_us.html')
 
+def terms_of_service(request):
+    return render(request, 'terms_of_service.html')
+
 def upvote_convo_log(request, log_id):
     # Get the ConvoLog object or return a 404 error if it doesn't exist
     convo_log = get_object_or_404(ConvoLog, id=log_id)

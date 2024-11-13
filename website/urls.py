@@ -60,6 +60,7 @@ urlpatterns = [
     path('about-us/', views.about_us, name='about_us'),
     path('upvote/<int:log_id>/', views.upvote_convo_log, name='upvote_convo_log'),
     path('verify_signature/', views.verify_signature, name='verify_signature'),
+    path('terms_of_service/', views.terms_of_service, name='terms_of_service'),
 ]
 
 
