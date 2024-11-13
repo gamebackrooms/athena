@@ -184,7 +184,6 @@ def conversation_topics(request):
                 'id': topic.id,
                 'title': topic.title,
                 'created_date': timesince(topic.created_date) + ' ago',
-                'elapsed_seconds': int((now() - topic.created_date).total_seconds()),
             }
             for topic in topics
         ]
