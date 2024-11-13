@@ -93,7 +93,7 @@ import base58
 from nacl.signing import VerifyKey
 from nacl.exceptions import BadSignatureError
 from django.contrib.auth.decorators import user_passes_test
-from django.shortcuts import redirect, get_object_or_404
+from django.shortcuts import redirect, get_object_or_404, render
 
 from django.views.decorators.csrf import csrf_exempt
 from django.utils.decorators import method_decorator
@@ -109,6 +109,10 @@ from rest_framework.authtoken.views import ObtainAuthToken
 from rest_framework.authtoken.models import Token
 from rest_framework.response import Response
 from django.contrib.auth import authenticate
+
+from django.core.paginator import Paginator
+from django.utils.timesince import timesince
+from django.http import JsonResponse 
 
 pokerGPT_version = "00.00.06"
 small_blind_size = 10
@@ -165,11 +169,6 @@ def delete_convo_log(request, id):
     return redirect('index')  # Replace 'convo_log_list' with your list view name
 
 
-from django.core.paginator import Paginator
-from django.utils.timesince import timesince
-from django.http import JsonResponse
-from django.shortcuts import render
-from .models import ConversationTopic
 
 def conversation_topics(request):
     topics_list = ConversationTopic.objects.all().order_by('-created_date')
@@ -179,12 +178,13 @@ def conversation_topics(request):
     topics = paginator.get_page(page_number)
     
     if request.headers.get('Content-Type') == 'application/json' or request.GET.get('format') == 'json':
-        # Prepare data for JSON response with duration
+        # Prepare data for JSON response with duration in seconds
         topics_data = [
             {
                 'id': topic.id,
                 'title': topic.title,
                 'created_date': timesince(topic.created_date) + ' ago',
+                'elapsed_seconds': int((now() - topic.created_date).total_seconds()),
             }
             for topic in topics
         ]
