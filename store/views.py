@@ -178,12 +178,12 @@ def conversation_topics(request):
     topics = paginator.get_page(page_number)
     
     if request.headers.get('Content-Type') == 'application/json' or request.GET.get('format') == 'json':
-        # Prepare data for JSON response with duration in seconds
+        # Prepare data for JSON response with elapsed time
         topics_data = [
             {
                 'id': topic.id,
                 'title': topic.title,
-                'created_date': timesince(topic.created_date) + ' ago',
+                'created_date': elapsed_time(topic.created_date),  # Use the filter here
             }
             for topic in topics
         ]
