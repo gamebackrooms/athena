@@ -154,7 +154,8 @@
 
         console.log(`Token balance: ${tokenBalance}`);
         document.getElementById('tokenBalance').textContent = `Token balance: ${tokenBalance}`;
-
+        window.location.reload();
+        
       } catch (error) {
         console.error('Error connecting to Phantom wallet:', error);
 
