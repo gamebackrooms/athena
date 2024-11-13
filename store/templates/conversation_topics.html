@@ -21,7 +21,7 @@
                     {% for topic in topics %}
                         <tr>
                             <td>{{ topic.title }}</td>
-                            <td>{{ topic.created_date }}</td>
+                            <td>{{ topic.created_date|elapsed_time }}</td>
                             <td><a href="{% url 'index' %}?id={{ topic.id }}"><i class="fas fa-search text-light"></i></a></td>
                             {% if user.is_staff %}
                             <td>
