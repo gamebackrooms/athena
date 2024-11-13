@@ -10,6 +10,17 @@ from store.models import Accesstoken
 register = template.Library()
 
 @register.filter
+def elapsed_time(created_date):
+    elapsed = now() - created_date
+    seconds = elapsed.total_seconds()
+    if seconds < 60:
+        return f"{int(seconds)} seconds ago"
+    elif seconds < 3600:
+        return f"{int(seconds // 60)} minutes ago"
+    else:
+        return f"{int(seconds // 3600)} hours ago"
+    
+@register.filter
 def format_timestamp(timestamp):
     try: 
         # Convert milliseconds to seconds
