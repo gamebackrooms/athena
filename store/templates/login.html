@@ -1,39 +1,34 @@
 {% extends 'base.html' %}
 {% block content %}
-<section class="py-5">
+<section class="d-flex align-items-center justify-content-center" style="min-height: 100vh;">
     <div class="container">
-      <div class="container mt-5 text-light">
-    <div class="col-md-6 text-center">   
-                        <!-- Content for the right column goes here -->
-                                  <h4>Login</h4>
-                                  {% if error %}
-                                    <p style="color: red;">{{ error }}</p>
-                                  {% endif %}
-                                  <form  class="user" method="post">
-                                      {% csrf_token %}
-
-                                      <div class="form-group">
-                                          <input type="text" class="form-control form-control-user"
-                                              id="username" name="username" aria-describedby="emailHelp"
-                                              placeholder="Enter username ...">
-                                      </div>
-                                      <div class="form-group">
-                                          <input type="password" class="form-control form-control-user"
-                                              id="password" name="password" placeholder="Password">
-                                      </div>
-                                      <div class="form-group">
-                                          <div class="custom-control custom-checkbox small">
-                                              <input type="checkbox" class="custom-control-input" id="customCheck">
-                                              <label class="custom-control-label" for="customCheck">Remember
-                                                  Me</label>
-                                          </div>
-                                      </div>
-                                      <button type="submit" href="index.html" class="btn btn-success btn-user btn-block">
-                                          Login
-                                      </button>
-                                  </form>
-    </div>       
-    </div>  
-    </div>         
+        <div class="row justify-content-center">
+            <div class="col-md-6 text-center text-light">
+                <!-- Content for the right column goes here -->
+                <h4>Login</h4>
+                {% if error %}
+                    <p style="color: red;">{{ error }}</p>
+                {% endif %}
+                <form class="user" method="post">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <input type="text" class="form-control form-control-user" id="username" name="username"
+                               aria-describedby="emailHelp" placeholder="Enter username ...">
+                    </div>
+                    <div class="form-group">
+                        <input type="password" class="form-control form-control-user" id="password" name="password"
+                               placeholder="Password">
+                    </div>
+                    <div class="form-group">
+                        <div class="custom-control custom-checkbox small">
+                            <input type="checkbox" class="custom-control-input" id="customCheck">
+                            <label class="custom-control-label" for="customCheck">Remember Me</label>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-success btn-user btn-block">Login</button>
+                </form>
+            </div>
+        </div>
+    </div>
 </section>
 {% endblock %}
