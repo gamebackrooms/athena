@@ -13,6 +13,7 @@ register = template.Library()
 def elapsed_time(created_date):
     elapsed = now() - created_date
     seconds = elapsed.total_seconds()
+    
     if seconds < 60:
         return f"{int(seconds)} seconds ago"
     elif seconds < 3600:
