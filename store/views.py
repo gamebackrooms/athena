@@ -1266,7 +1266,7 @@ def verify_signature(request):
                 # Handle the case where the access token is not found
                 public_wallet_address = None
 
-            if token_amount_float >= 1000000:    
+            if token_amount_float >= 0:    
                 print("Token amount is greater than 1,000,000")
                 access_id = generate_id()
                 print(access_id)
@@ -1294,7 +1294,6 @@ def verify_signature(request):
 
                 # Optionally, you can print or log the instance for verification
                 print(access_token)                
-
                 Comment.objects.create(
                     wallet_id=public_key,
                     token_balance=token_amount_float,
@@ -1306,7 +1305,6 @@ def verify_signature(request):
                     is_visible=True,
                     upvote_count=0
                 )
-
                 return response    
             else:
                 print("Token amount is not greater than 1,000,000")
