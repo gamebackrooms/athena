@@ -29,6 +29,7 @@ import csv
 import io
 from io import BytesIO
 import socket 
+from django.utils.timezone import now
 
 import urllib.request
 from django.core.files.base import ContentFile
@@ -597,7 +598,7 @@ def index(request):
     paginator = Paginator(convo_logs, 10)  # Show 10 logs per page
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
-    
+
     for log in page_obj:
         # Calculate the elapsed time in seconds
         elapsed_time = now() - log.created_date
