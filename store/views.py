@@ -1195,10 +1195,9 @@ def verify_signature(request):
         public_key = request.GET.get('publicKey', '').strip()  # Ensure no leading/trailing spaces
         print(public_key)
         signature_base64 = request.GET.get('signature', '')
-        
+        message_or_transaction = request.GET.get('message', '')
         print(signature_base64)
-        
-        message_or_transaction = 'Hello from ChatGPTdotfun!'
+         
         
         try:
             
