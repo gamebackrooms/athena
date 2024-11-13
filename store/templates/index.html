@@ -31,7 +31,14 @@
         {% endif %}
         <div class="row">
           <div class="col-md-12 text-center terminal-green">  
-            <ul class="convo-logs list-group text-left">
+                <!-- Search Form -->
+            <form method="get" action="{% url 'index' %}" class="mb-4">
+              <div class="input-group">
+                <input type="text" class="form-control" name="search" placeholder="Search..." value="{{ request.GET.search }}">
+                <button class="btn btn-outline-secondary" type="submit">Search</button>
+              </div>
+            </form> 
+            <ul class="convo-logs list-group text-left mt-4">
               {% for log in page_obj %}
               <li class="list-group-item mb-3">
                 <div class="d-flex justify-content-between text-left">
