@@ -15,13 +15,15 @@
                     <tr>
                         <th>Title</th>
                         <th>Created Date</th>
+                        <th><i class="fas fa-search  text-light"></i></th>
                     </tr>
                 </thead>
                 <tbody>
                     {% for topic in topics %}
                         <tr>
-                            <td>{{ topic.title }} <a href="{% url 'index' %}?id={{ topic.id }}"><i class="fas fa-search  text-light"></i></a></td>
+                            <td>{{ topic.title }}</td>
                             <td>{{ topic.created_date }}</td>
+                            <td><a href="{% url 'index' %}?id={{ topic.id }}"><i class="fas fa-search  text-light"></i></a></td>
                             {% if user.is_staff %}
                             <td>
                                 <!-- Delete Button -->
