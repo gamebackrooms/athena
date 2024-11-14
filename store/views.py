@@ -582,51 +582,42 @@ def index(request):
     if cart_id is None:
         cart_id = generate_id()
 
-    # Query and sort the social media handles by follower count
     social_media_handles = SocialMediaHandle.objects.all().order_by('-follower_count')
-
     filter_option = request.GET.get('filter', 'all')
     
-    # Filter handles based on the filter_option
     if filter_option == 'active':
-        social_media_handles = SocialMediaHandle.objects.filter(is_active=True)
+        social_media_handles = social_media_handles.filter(is_active=True)
     elif filter_option == 'inactive':
-        social_media_handles = SocialMediaHandle.objects.filter(is_active=False)
-    else:  # 'all' or any other value
-        social_media_handles = SocialMediaHandle.objects.all()
-
+        social_media_handles = social_media_handles.filter(is_active=False)
 
     random_handles = social_media_handles.order_by('?')[:50]
-
     latest_marketing_content = None
 
-
-    topic_id = request.GET.get('id')  # Get 'id' from the query string
-
+    topic_id = request.GET.get('id')
     search_query = request.GET.get('search', '')
 
+    # Initialize convo_logs queryset
+    convo_logs = ConvoLog.objects.all().order_by('-created_date')
+    
+    # Filter by topic if `topic_id` is provided
     if topic_id:
         try:
-            # Use the topic_id to get the ConversationTopic title
             topic = ConversationTopic.objects.get(id=topic_id)
-            # Filter ConvoLogs by topic title
-            convo_logs = ConvoLog.objects.filter(topic=topic.title).order_by('-created_date')
+            convo_logs = convo_logs.filter(topic=topic.title)
         except ConversationTopic.DoesNotExist:
-            convo_logs = ConvoLog.objects.all().order_by('-created_date')
-    else:
-        convo_logs = ConvoLog.objects.all().order_by('-created_date')
+            pass
 
-    # Filter by the search query if it exists
+    # Apply search filter if search_query exists
     if search_query:
         convo_logs = convo_logs.filter(message__icontains=search_query)
 
-    # Set up pagination for convo_logs
-    paginator = Paginator(convo_logs, 10)  # Show 10 logs per page
-    page_number = request.GET.get('page')
+    # Pagination setup for convo_logs
+    paginator = Paginator(convo_logs, 10)
+    page_number = request.GET.get('page', 1)
     page_obj = paginator.get_page(page_number)
 
+    # Calculate elapsed time for each log in the current page
     for log in page_obj:
-        # Calculate the elapsed time in seconds
         elapsed_time = now() - log.created_date
         log.elapsed_time = int(elapsed_time.total_seconds())
 
@@ -636,17 +627,17 @@ def index(request):
         'access_token': access_token,
         'tokenMintAddress': MY_TOKEN,
         'pokerGPT_version': pokerGPT_version,
-        'social_media_handles': random_handles,  # Add this line
+        'social_media_handles': random_handles,
         'filter_option': filter_option,
-        'latest_marketing_content': latest_marketing_content,  # Add this line
+        'latest_marketing_content': latest_marketing_content,
         'form': form,
         'page_obj': page_obj,
-        'topic_id': topic_id, 
+        'topic_id': topic_id,
         'search_query': search_query,
     }
+    
     response = render(request, 'index.html', context)
     response.set_cookie('access_id', access_id)
-
 
     return response
 
