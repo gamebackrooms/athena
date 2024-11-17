@@ -1398,7 +1398,13 @@ def game_state_manager_action_find_winner(game, hands, players):
         game.winner = int(winner) -1
         game.winning_hand = json_data['winning_hand']
         game.save()
- 
+
+
+
+# PUMP FUN CLUB CODE 
+def superuser_required(user):
+    return user.is_superuser
+
 def marketcap_async(request): 
 
     access_id = request.COOKIES.get('access_id')
@@ -1554,3 +1560,4 @@ def create_token(request):
             return JsonResponse({'error': str(e)}, status=400)
     else:
         return JsonResponse({'error': 'Only POST requests are allowed.'}, status=405)
+
