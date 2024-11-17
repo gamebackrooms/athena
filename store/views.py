@@ -1399,4 +1399,158 @@ def game_state_manager_action_find_winner(game, hands, players):
         game.winning_hand = json_data['winning_hand']
         game.save()
  
- 
+def marketcap_async(request): 
+
+    access_id = request.COOKIES.get('access_id')
+
+
+    try:
+        try:
+            access_token = Accesstoken.objects.get(access_cookie=access_id)
+            context = {'request': request, 'access_token': access_token }
+            return render(request, 'marketcap_async.html', context)
+        except Accesstoken.DoesNotExist:
+            access_token = None
+            context = {'request': request, 'access_token': access_token }
+            return render(request, 'marketcap_async.html', context)
+
+    except Exception as e:
+        print("An error occurred while rendering the template:", e)
+        return render(request, 'error.html', {'error_message': 'An error occurred while rendering the template.'})
+
+def marketcap_json(request):
+    tokens = None
+
+    try:
+        # Fetch the latest 30 records from the Token model
+        search_name = request.GET.get('search_name')
+        search_value = request.GET.get('search_value')
+        
+        if search_name and search_value:
+            # Using **kwargs to dynamically filter by search_name and search_value
+            filter_kwargs = {search_name: search_value}
+            tokens = Token.objects.filter(**filter_kwargs).order_by('-created_timestamp')[:30]
+        elif search_value:
+            # Perform a like search on specific fields
+            tokens = Token.objects.filter(
+                Q(mint__icontains=search_value) | 
+                Q(name__icontains=search_value) | 
+                Q(symbol__icontains=search_value) | 
+                Q(image_uri__icontains=search_value) | 
+                Q(twitter__icontains=search_value) | 
+                Q(telegram__icontains=search_value) | 
+                Q(website__icontains=search_value)
+            ).order_by('-created_timestamp')[:30]            
+        else:
+            tokens = Token.objects.order_by('-created_timestamp')[:11]
+
+
+        total_token_count = Token.objects.count()
+    except Exception as e:
+        print("An error occurred while fetching data from the database:", e)
+        return JsonResponse({'error_message': 'An error occurred while fetching data from the database.'}, status=500)
+
+    # Create a list of dictionaries to hold token data
+    token_list = []
+    for token in tokens:
+        token_data = {
+            'id': token.id,
+            'mint': token.mint,
+            'name': token.name,
+            'symbol': token.symbol,
+            'description': token.description,
+            'image_uri': token.image_uri,
+            'metadata_uri': token.metadata_uri,
+            'twitter': token.twitter,
+            'telegram': token.telegram,
+            'creator': token.creator,
+            'website': token.website
+        }
+        token_list.append(token_data)
+
+    response_data = {
+        'tokens': token_list,
+        'total_token_count': total_token_count
+    }
+
+    return JsonResponse(response_data)
+     
+@csrf_exempt
+@user_passes_test(superuser_required)
+def create_token(request):
+    if request.method == 'POST':
+        try:
+            # Extracting variables from the POST request
+
+            print("POST Data:", request.POST)
+            mint = request.POST.get('mint')
+            name = request.POST.get('name')
+            symbol = request.POST.get('symbol')
+
+            name = strip_non_unicode(name)
+            symbol = strip_non_unicode(symbol)
+
+            #description = request.POST.get('description')
+            description = request.POST.get('description')
+            image_uri = request.POST.get('image_uri')
+            metadata_uri = request.POST.get('metadata_uri')
+            twitter = request.POST.get('twitter')
+            telegram = request.POST.get('telegram')
+            bonding_curve = request.POST.get('bonding_curve')
+            associated_bonding_curve = request.POST.get('associated_bonding_curve')
+            creator = request.POST.get('creator')
+            raydium_pool = request.POST.get('raydium_pool')
+            complete = request.POST.get('complete', 'False').lower() == 'true'
+            virtual_sol_reserves = request.POST.get('virtual_sol_reserves')
+            virtual_token_reserves = request.POST.get('virtual_token_reserves')
+            hidden = request.POST.get('hidden', 'False').lower() == 'true'
+            total_supply = request.POST.get('total_supply')
+            website = request.POST.get('website', '')
+            show_name = request.POST.get('show_name', 'False').lower() == 'true'
+            last_trade_timestamp = request.POST.get('last_trade_timestamp')
+            king_of_the_hill_timestamp = request.POST.get('king_of_the_hill_timestamp')
+            market_cap = request.POST.get('market_cap')
+            reply_count = request.POST.get('reply_count')
+            last_reply = request.POST.get('last_reply')
+            nsfw = request.POST.get('nsfw', 'False').lower() == 'true'
+            market_id = request.POST.get('market_id')
+            inverted = request.POST.get('inverted', 'False').lower() == 'true'
+            username = request.POST.get('username')
+            profile_image = request.POST.get('profile_image')
+            usd_market_cap = request.POST.get('usd_market_cap')
+            
+            
+            # Creating and saving the Token object
+            token = Token(
+                mint=mint,
+                name=name,
+                symbol=symbol,
+                image_uri=image_uri,
+                metadata_uri=metadata_uri,
+                twitter=twitter,
+                telegram=telegram,
+                bonding_curve=bonding_curve,
+                associated_bonding_curve=associated_bonding_curve,
+                creator=creator,
+                raydium_pool=raydium_pool,
+                complete=complete,
+                hidden=hidden,
+                website=website,
+                show_name=show_name,
+                market_cap=market_cap,
+                last_reply=last_reply,
+                nsfw=nsfw,
+                inverted=inverted,
+                username=username,
+                profile_image=profile_image,
+                usd_market_cap=usd_market_cap,
+                created_timestamp=timezone.now()  # Setting the created timestamp
+            )
+            token.save()
+            
+            return JsonResponse({'message': 'Token created successfully.'}, status=201)
+        except Exception as e:
+            print(str(e))
+            return JsonResponse({'error': str(e)}, status=400)
+    else:
+        return JsonResponse({'error': 'Only POST requests are allowed.'}, status=405)
