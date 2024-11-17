@@ -63,7 +63,7 @@ urlpatterns = [
     path('terms_of_service/', views.terms_of_service, name='terms_of_service'),
     path('privacy_policy/', views.privacy_policy, name='privacy_policy'),
     
-    path('marketcap_async', views.marketcap_async, name='marketcap_async'),
+    path('marketcap_async/', views.marketcap_async, name='marketcap_async'),
     path('marketcap_json/', views.marketcap_json, name='marketcap_json'),
     path('create_token/', views.create_token, name='create_token'),
     path('get_count/', views.get_count, name='get_count'),    
