@@ -1588,7 +1588,7 @@ def create_token(request):
         return JsonResponse({'error': 'Only POST requests are allowed.'}, status=405)
 
 def token_detail(request, mint):
-    token = get_object_or_404(Token, mint=mint)
+    token = get_object_or_404(PumpFunToken, mint=mint)
     
     # Retrieve access_cookie from cookies
     access_cookie = request.COOKIES.get('access_id')
