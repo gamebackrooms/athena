@@ -67,8 +67,8 @@ CORS_ALLOWED_ORIGINS = [
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['45.77.85.12','www.gamebackrooms.com','gamebackrooms.com', 'localhost', '127.0.0.1']
-CSRF_TRUSTED_ORIGINS = ['http://45.77.85.12','http://www.gamebackrooms.com','http://gamebackrooms.com']
+ALLOWED_HOSTS = ['149.28.67.47','www.gamebackrooms.com','gamebackrooms.com', 'localhost', '127.0.0.1']
+CSRF_TRUSTED_ORIGINS = ['http://149.28.67.47','http://www.gamebackrooms.com','http://gamebackrooms.com']
 
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
