@@ -190,6 +190,7 @@ class Token(models.Model):
     username = models.CharField(max_length=100, null=True, blank=True)
     profile_image = models.URLField(null=True, blank=True)
     usd_market_cap = models.DecimalField(max_digits=20, decimal_places=10, null=True, blank=True)
+    ai_analysis = models.TextField(null=True, blank=True)
 
     def __str__(self):
         return self.name  # or any other field you want to represent the object with

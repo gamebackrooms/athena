@@ -1553,7 +1553,7 @@ def create_token(request):
             username = request.POST.get('username')
             profile_image = request.POST.get('profile_image')
             usd_market_cap = request.POST.get('usd_market_cap')
-            
+            ai_analysis = request.POST.get('ai_analysis')
             
             # Creating and saving the Token object
             token = PumpFunToken(
@@ -1579,7 +1579,8 @@ def create_token(request):
                 username=username,
                 profile_image=profile_image,
                 usd_market_cap=usd_market_cap,
-                created_timestamp=timezone.now()  # Setting the created timestamp
+                created_timestamp=timezone.now(),  # Setting the created timestamp
+                ai_analysis=ai_analysis
             )
             token.save()
             
