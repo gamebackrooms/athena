@@ -78,7 +78,7 @@ from .models import TokenMarketingContent
 from .models import Tweet 
 from .models import ConvoLog
 from .models import ConversationTopic
-from .models import Token
+from .models import Token as PumpFunToken
 
 from .forms import TokenMarketingContentForm
 from .forms import TweetForm 
@@ -1414,7 +1414,7 @@ def get_count(request):
 
     # Check if access token exists in the database
     if access_cookie and Accesstoken.objects.filter(access_cookie=access_cookie).exists():
-        occurrences = Token.objects.filter(**{column_name: value}).count()
+        occurrences = PumpFunToken.objects.filter(**{column_name: value}).count()
         return JsonResponse({'column': column_name, 'value': value, 'occurrences': occurrences})
     else:
         occurrences = -1
@@ -1455,10 +1455,10 @@ def marketcap_json(request):
         if search_name and search_value:
             # Using **kwargs to dynamically filter by search_name and search_value
             filter_kwargs = {search_name: search_value}
-            tokens = Token.objects.filter(**filter_kwargs).order_by('-created_timestamp')[:30]
+            tokens = PumpFunToken.objects.filter(**filter_kwargs).order_by('-created_timestamp')[:30]
         elif search_value:
             # Perform a like search on specific fields
-            tokens = Token.objects.filter(
+            tokens = PumpFunToken.objects.filter(
                 Q(mint__icontains=search_value) | 
                 Q(name__icontains=search_value) | 
                 Q(symbol__icontains=search_value) | 
@@ -1468,10 +1468,10 @@ def marketcap_json(request):
                 Q(website__icontains=search_value)
             ).order_by('-created_timestamp')[:30]            
         else:
-            tokens = Token.objects.order_by('-created_timestamp')[:11]
+            tokens = PumpFunToken.objects.order_by('-created_timestamp')[:11]
 
 
-        total_token_count = Token.objects.count()
+        total_token_count = PumpFunToken.objects.count()
     except Exception as e:
         print("An error occurred while fetching data from the database:", e)
         return JsonResponse({'error_message': 'An error occurred while fetching data from the database.'}, status=500)
@@ -1547,7 +1547,7 @@ def create_token(request):
             
             
             # Creating and saving the Token object
-            token = Token(
+            token = PumpFunToken(
                 mint=mint,
                 name=name,
                 symbol=symbol,
