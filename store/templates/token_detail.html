@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+
+{% load custom_filters %}
+
+
+{% block content %}
+<h1>{{ token.name }}</h1>
+
+<p><a href="https://www.pump.fun/{{ token.mint }}" >{{ token.mint }}</a></p>
+
+{% if token.image_uri %}
+    <img src="{{ token.image_uri }}" alt="{{ token.name }}" />
+{% endif %}
+<p><strong>Symbol:</strong> {{ token.symbol }}</p>
+<p><strong>Website:</strong> <a href="{{ token.website }}">{{ token.website }}</a></p>
+<p><strong>Creator:</strong> {{ token.creator }}</p>
+<p><strong>Twitter:</strong> <a href="{{ token.twitter }}">{{ token.twitter }}</a></p>
+<p><strong>Telegram:</strong> <a href="{{ token.telegram }}">{{ token.telegram }}</a></p>
+
+<h2>Distinct Accounts Raided</h2>
+{% if distinct_accounts %}
+    <ul>
+        {% for account in distinct_accounts %}
+            <li>{{ account }}</li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p>No distinct accounts found.</p>
+{% endif %}
+
+<h2>Raid Links</h2>
+<ul>
+    {% for link in raid_links %}
+        <li>
+            <a href="{% url 'redirect_with_click_count' link.id %}">{{ link.url }}</a>
+
+            (Clicks: {{ link.click_count }})
+        </li>
+    {% empty %}
+        <li>No raid links available.</li>
+    {% endfor %}
+</ul>
+
+<!-- Form to add a RaidLink -->
+<h2>Add RaidLink</h2>
+<form method="post" action="{% url 'token_detail' mint=token.mint %}" class="mb-3">
+    {% csrf_token %} 
+    <div class="form-group">
+        <label for="url" class="form-label">URL:</label>
+        <input type="url" id="url" name="url" class="form-control" required>
+    </div>
+    <button type="submit" class="btn btn-primary">Add Link</button>
+</form>
+
+
+{% endblock %}

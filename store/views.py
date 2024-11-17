@@ -1587,3 +1587,69 @@ def create_token(request):
     else:
         return JsonResponse({'error': 'Only POST requests are allowed.'}, status=405)
 
+def token_detail(request, mint):
+    token = get_object_or_404(Token, mint=mint)
+    
+    # Retrieve access_cookie from cookies
+    access_cookie = request.COOKIES.get('access_id')
+    print(access_cookie)
+    
+    # Initialize user and public_wallet_address to None
+    user = None
+    public_wallet_address = None
+    
+    if access_cookie:
+        try:
+            # Fetch the Accesstoken based on access_cookie
+            access_token = Accesstoken.objects.get(access_cookie=access_cookie)
+            public_wallet_address = access_token.public_wallet_address
+            print(public_wallet_address)
+            # Fetch user based on public_wallet_address if needed
+            # This assumes you have a method to map public_wallet_address to a User
+
+        except Accesstoken.DoesNotExist:
+            access_token = None
+
+    if request.method == 'POST':
+        url = request.POST.get('url')
+        
+        if mint and url:
+            # Check if the URL starts with 'https://x.com'
+            if url.startswith('https://x.com'):
+                # Check if a RaidLink with the same URL and token mint already exists
+                existing_link = RaidLink.objects.filter(token_mint=mint, url=url).exists()
+                
+                if not existing_link:
+                    raid_link = RaidLink(
+                        token_mint=mint,
+                        url=url,
+                        click_count=0,  # Initial click count
+                        created_by=public_wallet_address  # Set the user who created the link
+                    )
+                    raid_link.save()
+                    return redirect('token_detail', mint=mint)  # Redirect to the same page after saving
+                else:
+                    # Notify user that the link has already been added
+                    messages.error(request, 'This link has already been added for this token.')
+            else:
+                # Notify user that the URL must start with 'https://x.com'
+                messages.error(request, 'URL must start with https://x.com')
+
+            return redirect('token_detail', mint=mint)
+
+    # Retrieve all RaidLinks associated with the token mint
+    raid_links = RaidLink.objects.filter(token_mint=mint)
+    
+    # Extract distinct accounts from raid links
+    accounts = set()
+    for link in raid_links:
+        match = re.search(r'https://x\.com/([^/]+)/status/\d+', link.url)
+        if match:
+            account = match.group(1)
+            accounts.add(account)
+
+    return render(request, 'token_detail.html', {
+        'token': token,
+        'raid_links': raid_links,  # Pass the raid links to the template context
+        'distinct_accounts': list(accounts)  # Pass distinct accounts to the template context
+    })
