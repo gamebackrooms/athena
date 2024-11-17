@@ -1499,7 +1499,8 @@ def marketcap_json(request):
             'twitter': token.twitter,
             'telegram': token.telegram,
             'creator': token.creator,
-            'website': token.website
+            'website': token.website,
+            'ai_analysis': token.ai_analysis
         }
         token_list.append(token_data)
 
