@@ -69,6 +69,8 @@ urlpatterns = [
     path('get_count/', views.get_count, name='get_count'),  
     
     path('token/<str:mint>/', views.token_detail, name='token_detail'),  
+    path('tweets/', views.tweet_list, name='tweet_list'),  # URL for listing tweets
+    path('add/', views.create_tweet, name='tweet_add'),  # URL for creating a new tweet
 ]
 
 

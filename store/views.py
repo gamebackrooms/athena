@@ -79,7 +79,10 @@ from .models import Tweet
 from .models import ConvoLog
 from .models import ConversationTopic
 from .models import Token as PumpFunToken
+from .models import RaidLink
+from .models import Tweet
 
+from .forms import TweetForm 
 from .forms import TokenMarketingContentForm
 from .forms import TweetForm 
 
@@ -1653,3 +1656,48 @@ def token_detail(request, mint):
         'raid_links': raid_links,  # Pass the raid links to the template context
         'distinct_accounts': list(accounts)  # Pass distinct accounts to the template context
     })
+
+
+def delete_tweet_by_content(request):
+    content = request.GET.get('content')  # Get the content from the query string
+    if not content:
+        return redirect('tweet_list')  # Redirect if no content is provided
+
+    # Retrieve all tweets that match the content
+    tweets = Tweet.objects.filter(content=content)
+    if not tweets.exists():
+        return redirect('tweet_list')  # Redirect if no tweets are found
+
+    # Delete all tweets with the matching content
+    tweets.delete()
+    return redirect('tweet_list')  # Redirect to the list after deletion
+
+
+# View to delete a tweet without confirmation
+def delete_tweet(request, tweet_id):
+    tweet = get_object_or_404(Tweet, id=tweet_id)
+    tweet.delete()  # Delete the tweet immediately
+    return redirect('tweet_list')  # Redirect to the list after deletion
+
+def tweet_list(request):
+    tweets = Tweet.objects.all()
+
+    # Check if the request is for JSON format
+    if request.GET.get('format') == 'json':
+        tweet_data = list(tweets.values())  # Convert the QuerySet to a list of dictionaries
+        return JsonResponse(tweet_data, safe=False)
+
+    return render(request, 'tweet_list.html', {'tweets': tweets})
+
+
+# View to create a new tweet
+def create_tweet(request):
+    if request.method == 'POST':
+        form = TweetForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('tweet_list')  # Redirect to the list after saving
+    else:
+        form = TweetForm()
+    
+    return render(request, 'tweet_form.html', {'form': form})
