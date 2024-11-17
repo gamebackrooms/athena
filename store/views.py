@@ -135,6 +135,12 @@ poker_player_types = [{"type": "Drunk Player", "description": "Often makes reckl
 def admin_required(view_func):
     return user_passes_test(lambda u: u.is_superuser)(view_func)
 
+
+def strip_non_unicode(text):
+    if isinstance(text, str):
+        return text.encode('ascii', 'ignore').decode('ascii')
+    return None
+
 def about_us(request):
     return render(request, 'about_us.html')
 
