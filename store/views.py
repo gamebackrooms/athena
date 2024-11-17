@@ -1399,6 +1399,25 @@ def game_state_manager_action_find_winner(game, hands, players):
         game.winning_hand = json_data['winning_hand']
         game.save()
 
+@csrf_exempt
+def get_count(request):
+    # Get the column name and value from the request
+    access_id = request.COOKIES.get('access_id')
+    column_name = request.GET.get('column_name')
+    value = request.GET.get('value')
+
+    access_cookie = request.COOKIES.get('access_id')
+    
+    if not column_name or not value:
+        return JsonResponse({'error': 'Both column_name and value must be provided.'}, status=400)
+
+    # Check if access token exists in the database
+    if access_cookie and Accesstoken.objects.filter(access_cookie=access_cookie).exists():
+        occurrences = Token.objects.filter(**{column_name: value}).count()
+        return JsonResponse({'column': column_name, 'value': value, 'occurrences': occurrences})
+    else:
+        occurrences = -1
+        return JsonResponse({'column': column_name, 'value': value, 'occurrences': occurrences})
 
 
 # PUMP FUN CLUB CODE 
