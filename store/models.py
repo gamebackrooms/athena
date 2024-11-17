@@ -199,10 +199,21 @@ class Accesstoken(models.Model):
     access_cookie = models.CharField(max_length=255)
     public_wallet_address = models.CharField(max_length=255, unique=True)
     token_balance = models.FloatField()
+    is_scam_filter_on = models.BooleanField(default=False)
     bank_balance = models.IntegerField()
-
     def __str__(self):
         return f'{self.public_wallet_address} - {self.access_cookie}'
+
+
+class RaidLink(models.Model):
+    token_mint = models.CharField(max_length=100)
+    url = models.URLField()
+    click_count = models.IntegerField(default=0)
+    created_at = models.DateTimeField(auto_now_add=True)
+    created_by = models.CharField(max_length=100)
+
+    def __str__(self):
+        return f"RaidLink(token_mint={self.token_mint}, url={self.url}, click_count={self.click_count}, created_at={self.created_at}, created_by={self.created_by.username})"
 
 class Game(models.Model):
     game_id = models.TextField(unique=True)
