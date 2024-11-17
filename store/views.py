@@ -78,6 +78,7 @@ from .models import TokenMarketingContent
 from .models import Tweet 
 from .models import ConvoLog
 from .models import ConversationTopic
+from .models import Token
 
 from .forms import TokenMarketingContentForm
 from .forms import TweetForm 
