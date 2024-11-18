@@ -1612,6 +1612,7 @@ def marketcap_json(request):
 @csrf_exempt
 @user_passes_test(superuser_required)
 def create_token(request):
+    print("create_token")
     if request.method == 'POST':
         try:
             # Extracting variables from the POST request
