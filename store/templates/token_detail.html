@@ -2,91 +2,86 @@
 
 {% load custom_filters %}
 
-
 {% block content %}
 
-<section class="py-0">
+<section class="py-4">
     <div class="container-fluid">
-      <div class="container mt-5 text-light">    
-          <div class="col-md-12 text-center">       
+        <div class="container mt-5 text-light">    
+            <div class="row text-center mb-4">
+                <div class="col-md-12">
+                    <h1 class="display-4">{{ token.name }}</h1>
+                    <p>
+                        <a href="https://www.pump.fun/{{ token.mint }}" class="text-decoration-none text-info">{{ token.mint }}</a>
+                    </p>
+                    {% if token.image_uri %}
+                        <p>
+                            <img src="{{ token.image_uri }}" alt="{{ token.name }}" class="img-fluid rounded">
+                        </p>
+                    {% endif %}
+                    <p><strong>Symbol:</strong> {{ token.symbol }}</p>
+                    <p><strong>Website:</strong> 
+                        <a href="{{ token.website }}" class="text-decoration-none text-info">{{ token.website }}</a>
+                    </p>
+                    <p><strong>Creator:</strong> {{ token.creator }}</p>
+                    <p><strong>Twitter:</strong> 
+                        <a href="{{ token.twitter }}" class="text-decoration-none text-info">{{ token.twitter }}</a>
+                    </p>
+                    <p><strong>Telegram:</strong> 
+                        <a href="{{ token.telegram }}" class="text-decoration-none text-info">{{ token.telegram }}</a>
+                    </p>
+                    <p>{{ token.ai_analysis }}</p>
+                </div>
+            </div>
+
+            <!-- Distinct Accounts Section -->
+            <div class="row mb-4">
+                <div class="col-md-12">
+                    <h2 class="h4">Distinct Accounts Raided</h2>
+                    {% if distinct_accounts %}
+                        <ul class="list-group">
+                            {% for account in distinct_accounts %}
+                                <li class="list-group-item bg-dark text-light">{{ account }}</li>
+                            {% endfor %}
+                        </ul>
+                    {% else %}
+                        <p class="text-warning">No distinct accounts found.</p>
+                    {% endif %}
+                </div>
+            </div>
+
+            <!-- Raid Links Section -->
+            <div class="row mb-4">
+                <div class="col-md-12">
+                    <h2 class="h4">Raid Links</h2>
+                    <ul class="list-group">
+                        {% for link in raid_links %}
+                            <li class="list-group-item bg-dark text-light">
+                                <a href="{% url 'redirect_with_click_count' link.id %}" class="text-decoration-none text-info">{{ link.url }}</a>
+                                <span class="badge bg-primary ms-2">Clicks: {{ link.click_count }}</span>
+                            </li>
+                        {% empty %}
+                            <li class="list-group-item bg-dark text-warning">No raid links available.</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Add RaidLink Form -->
             <div class="row">
-
-<h1>{{ token.name }}</h1>
-
-<p><a href="https://www.pump.fun/{{ token.mint }}" >{{ token.mint }}</a></p>
-
-{% if token.image_uri %}
-<p><img src="{{ token.image_uri }}" alt="{{ token.name }}" /></p>
-{% endif %}
-<p><strong>Symbol:</strong> {{ token.symbol }}</p>
-<p><strong>Website:</strong> <a href="{{ token.website }}">{{ token.website }}</a></p>
-<p><strong>Creator:</strong> {{ token.creator }}</p>
-<p><strong>Twitter:</strong> <a href="{{ token.twitter }}">{{ token.twitter }}</a></p>
-<p><strong>Telegram:</strong> <a href="{{ token.telegram }}">{{ token.telegram }}</a></p>
-<p>{{ token.ai_analysis }}</p>
-
-</div>
-</div>
-
-<!-- Form to add a RaidLink -->
-          <div class="col-md-12 text-left">       
-            <div class="row">
-<h2>Distinct Accounts Raided</h2>
-</div>
-<div class="row">
-{% if distinct_accounts %}
-    <ul>
-        {% for account in distinct_accounts %}
-            <li>{{ account }}</li>
-        {% endfor %}
-    </ul>
-{% else %}
-    <p>No distinct accounts found.</p>
-{% endif %}
-
-</div>
-</div>
-
-<!-- Form to add a RaidLink -->
-          <div class="col-md-12 text-left">       
-            <div class="row">
-<h2>Raid Links</h2>
-</div>
-<div class="row">
-<ul>
-    {% for link in raid_links %}
-        <li>
-            <a href="{% url 'redirect_with_click_count' link.id %}">{{ link.url }}</a>
-
-            (Clicks: {{ link.click_count }})
-        </li>
-    {% empty %}
-        <li>No raid links available.</li>
-    {% endfor %}
-</ul>
-</div>
-</div>
-
-<!-- Form to add a RaidLink -->
-          <div class="col-md-12 text-left">       
-            <div class="row">
-<h2>Add RaidLink</h2>
-</div>
-<div class="row">
-<form method="post" action="{% url 'token_detail' mint=token.mint %}" class="mb-3">
-    {% csrf_token %} 
-    <div class="form-group">
-        <label for="url" class="form-label">URL:</label>
-        <input type="url" id="url" name="url" class="form-control" required>
+                <div class="col-md-12">
+                    <h2 class="h4">Add RaidLink</h2>
+                    <form method="post" action="{% url 'token_detail' mint=token.mint %}" class="bg-dark p-4 rounded">
+                        {% csrf_token %} 
+                        <div class="mb-3">
+                            <label for="url" class="form-label text-light">URL:</label>
+                            <input type="url" id="url" name="url" class="form-control" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Add Link</button>
+                    </form>
+                </div>
+            </div>
+        </div>
     </div>
-    <button type="submit" class="btn btn-primary">Add Link</button>
-</form>
-
-</div>
-</div>
-
-</div>
-</div>
 </section>  
 
 {% endblock %}
