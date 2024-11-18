@@ -25,6 +25,12 @@
 <p><strong>Telegram:</strong> <a href="{{ token.telegram }}">{{ token.telegram }}</a></p>
 <p>{{ token.ai_analysis }}</p>
 
+</div>
+</div>
+
+<!-- Form to add a RaidLink -->
+          <div class="col-md-12 text-left">       
+            <div class="row">
 <h2>Distinct Accounts Raided</h2>
 {% if distinct_accounts %}
     <ul>
@@ -36,6 +42,12 @@
     <p>No distinct accounts found.</p>
 {% endif %}
 
+</div>
+</div>
+
+<!-- Form to add a RaidLink -->
+          <div class="col-md-12 text-left">       
+            <div class="row">
 <h2>Raid Links</h2>
 <ul>
     {% for link in raid_links %}
