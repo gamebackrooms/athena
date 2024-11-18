@@ -4,12 +4,19 @@
 
 
 {% block content %}
+
+<section class="py-0">
+    <div class="container-fluid">
+      <div class="container mt-5 text-light">    
+          <div class="col-md-12 text-center">       
+            <div class="row">
+
 <h1>{{ token.name }}</h1>
 
 <p><a href="https://www.pump.fun/{{ token.mint }}" >{{ token.mint }}</a></p>
 
 {% if token.image_uri %}
-    <img src="{{ token.image_uri }}" alt="{{ token.name }}" />
+<p><img src="{{ token.image_uri }}" alt="{{ token.name }}" /></p>
 {% endif %}
 <p><strong>Symbol:</strong> {{ token.symbol }}</p>
 <p><strong>Website:</strong> <a href="{{ token.website }}">{{ token.website }}</a></p>
@@ -53,5 +60,11 @@
     <button type="submit" class="btn btn-primary">Add Link</button>
 </form>
 
+</div>
+</div>
+
+</div>
+</div>
+</section>  
 
 {% endblock %}
