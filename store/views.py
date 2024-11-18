@@ -1256,7 +1256,7 @@ def verify_signature_game(request):
             verify_key.verify(message_bytes, signature_bytes)
             print("Signature is valid!")
  
-            url = "https://solana-mainnet.g.alchemy.com/v2/brUu7bUWYqnL02KEqM_k1GWoLgTtkGvg"
+            url = "https://worldchain-mainnet.g.alchemy.com/v2/brUu7bUWYqnL02KEqM_k1GWoLgTtkGvg"
             headers = {"accept": "application/json", "content-type": "application/json"}
 
             payload = {
