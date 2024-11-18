@@ -225,55 +225,37 @@ function getCreatorBalance(elementId, mintAddress) {
 </script>
 
 <!-- Displaying JSON data -->
-<section class="py-0">
+<section class="py-4">
   <div class="container-fluid">
-    
+    <!-- Row 1: Total Tokens Recorded -->
     <div class="row justify-content-center mt-3">
-      <div class="col-md-12 text-center">      
-        <h3 class="bg-dark text-white">Meme coins are like new songs: you know within seconds if it's a hit or miss!</h3>
-        <p>
-          {% if access_token %}
-              <input type="hidden" id="isScamFilterOn" name="isScamFilterOn" value="{{ access_token.is_scam_filter_on }}">
-              <button id="toggleScamFilterBtn" class="btn btn-primary">Toggle Scam Filter</button>
-          {% endif %}
-        </p>
-        <p><div id="walletAddress"></div>  </p>
-        <p><button id="connectButton" class="btn btn-primary">Connect to Phantom</button> </p> 
-        <p id="tokenBalance">Game Token balance: </p> 
-        <p>GAME CA: <a href="https://www.pump.fun/{{MY_TOKEN}}" >{{MY_TOKEN}}</a></p> 
-        <p><small>To unlock the full potential of the Game, 
-          please ensure you are signed in with a Phantom wallet. 
-          Elevated access requires a minimum of 1 million Game tokens. 
-          If you see a count of -1, it means you need to sign in or meet the token 
-          requirement to view the totals instead of -1.</small></p>
-      </div>
-    </div>    
-    
-
-    <div class="row justify-content-center mt-3"> 
-      <div class="col-md-12 text-center">
-        We have recorded <B><span id="totalTokenCount">{{ total_token_count }}</span></B> tokens from Pump.Fun launches in our database, helping you find the next gem that does 100x.
+      <div class="col-md-8 text-center">
+        <p class="lead">We have recorded <strong><span id="totalTokenCount">{{ total_token_count }}</span></strong> tokens from Pump.Fun launches in our database, helping you find the next gem that does 100x.</p>
       </div>
     </div>
-    <div class="row justify-content-center mt-3">
-      <div class="col-md-12 text-center">
+
+    <!-- Row 2: Search Form -->
+    <div class="row justify-content-center mt-4">
+      <div class="col-md-8 text-center">
         <form action="/marketcap_async_search/" method="get" class="form-inline justify-content-center">
           <div class="form-group mx-2">
             <label for="search_value" class="mr-2">Search</label>
-            <input type="text" class="form-control" id="search_value" name="search_value" required>
+            <input type="text" class="form-control" id="search_value" name="search_value" placeholder="Enter token name..." required>
           </div>
           <button type="submit" class="btn btn-primary">Go</button>
         </form>
       </div>
     </div>
-    <div id="tokenList" class="row mt-3">
-      <!-- Tokens will be populated here -->
-      <div id="loadingGif" style="display: flex; justify-content: center; align-items: center; height: 100vh;">
+
+    <!-- Row 3: Token List (Loading Indicator) -->
+    <div id="tokenList" class="row mt-5">
+      <div id="loadingGif" class="col-12 d-flex justify-content-center align-items-center" style="height: 100vh;">
         <img src="https://gamebackrooms.com/static/images/loading.large.gif" alt="Loading Image" style="width: 80%;" />
       </div>
     </div>
   </div>
 </section>
+
 <script>
   function getCountByNameAndValue(id, name, value) {
     // Define the base URL
