@@ -48,8 +48,12 @@
         <li>No raid links available.</li>
     {% endfor %}
 </ul>
+</div>
+</div>
 
 <!-- Form to add a RaidLink -->
+          <div class="col-md-12 text-left">       
+            <div class="row">
 <h2>Add RaidLink</h2>
 <form method="post" action="{% url 'token_detail' mint=token.mint %}" class="mb-3">
     {% csrf_token %} 
