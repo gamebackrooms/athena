@@ -1520,12 +1520,9 @@ def get_count(request):
         return JsonResponse({'error': 'Both column_name and value must be provided.'}, status=400)
 
     # Check if access token exists in the database
-    if access_cookie and Accesstoken.objects.filter(access_cookie=access_cookie).exists():
-        occurrences = PumpFunToken.objects.filter(**{column_name: value}).count()
-        return JsonResponse({'column': column_name, 'value': value, 'occurrences': occurrences})
-    else:
-        occurrences = -1
-        return JsonResponse({'column': column_name, 'value': value, 'occurrences': occurrences})
+    occurrences = PumpFunToken.objects.filter(**{column_name: value}).count()
+    return JsonResponse({'column': column_name, 'value': value, 'occurrences': occurrences})
+
 
 
 # PUMP FUN CLUB CODE 
