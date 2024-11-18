@@ -314,6 +314,22 @@ def processed_status(request, status_id):
     data = {'message': 'Status is already processed', 'processed': twitter_status.processed}
     return JsonResponse(data)
     
+def toggle_scam_filter(request):
+    access_id = request.COOKIES.get('access_id')
+    
+    if not access_id:
+        return JsonResponse({'error': 'Access ID not found in cookies.'}, status=400)
+
+    access_token = get_object_or_404(Accesstoken, access_cookie=access_id)
+    # Toggle the is_scam_filter_on field
+    if access_token.is_scam_filter_on:
+        access_token.is_scam_filter_on = False
+    else:
+        access_token.is_scam_filter_on = True
+    access_token.save()
+
+    return JsonResponse({'success': True, 'is_scam_filter_on': access_token.is_scam_filter_on})
+    
 def twitter_status_detail(request, status_id):
     # Fetch the TwitterStatus object by status_id
     print(status_id)

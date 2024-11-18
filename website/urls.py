@@ -73,6 +73,7 @@ urlpatterns = [
     path('token/<str:mint>/', views.token_detail, name='token_detail'),  
     path('tweets/', views.tweet_list, name='tweet_list'),  # URL for listing tweets
     path('add/', views.create_tweet, name='tweet_add'),  # URL for creating a new tweet
+    path('toggle-scam-filter/', views.toggle_scam_filter, name='toggle_scam_filter'),
 ]
 
 
