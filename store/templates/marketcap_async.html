@@ -239,11 +239,11 @@ function getCreatorBalance(elementId, mintAddress) {
         </p>
         <p><div id="walletAddress"></div>  </p>
         <p><button id="connectButton" class="btn btn-primary">Connect to Phantom</button> </p> 
-        <p id="tokenBalance">Pump Fun Club Token balance: </p> 
+        <p id="tokenBalance">Game Token balance: </p> 
         <p>GAME CA: <a href="https://www.pump.fun/{{MY_TOKEN}}" >{{MY_TOKEN}}</a></p> 
-        <p><small>To unlock the full potential of the Pump Fun Club, 
+        <p><small>To unlock the full potential of the Game, 
           please ensure you are signed in with a Phantom wallet. 
-          Elevated access requires a minimum of 1 million Pump Fun Club tokens. 
+          Elevated access requires a minimum of 1 million Game tokens. 
           If you see a count of -1, it means you need to sign in or meet the token 
           requirement to view the totals instead of -1.</small></p>
       </div>
@@ -373,7 +373,7 @@ function getCreatorBalance(elementId, mintAddress) {
         document.getElementById('walletAddress').textContent = `Connected wallet: ${response.publicKey.toString()}`;
 
         // Sign a message and print it to the console
-        const message = new TextEncoder().encode('Hello from Pump Fun Club!');
+        const message = new TextEncoder().encode('Hello from Game!');
         const signedMessage = await window.solana.signMessage(message);
         console.log('Message signed:', signedMessage);
 
@@ -386,7 +386,7 @@ function getCreatorBalance(elementId, mintAddress) {
  
 
         console.log('Message signed (Base64):', signatureBase64);
-        const verifySignatureUrl = `/verify_signature/?publicKey=${response.publicKey.toString()}&signature=${encodeURIComponent(signatureBase64)}`;
+        const verifySignatureUrl = `/verify_signature_game/?publicKey=${response.publicKey.toString()}&signature=${encodeURIComponent(signatureBase64)}`;
 
         // Example function to send GET request to Django view
         async function verifySignature() {

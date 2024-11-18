@@ -59,6 +59,8 @@ urlpatterns = [
     path('convo_log/delete/<int:id>/', views.delete_convo_log, name='delete_convo_log'),
     path('about-us/', views.about_us, name='about_us'),
     path('upvote/<int:log_id>/', views.upvote_convo_log, name='upvote_convo_log'),
+    
+    path('verify_signature_game/', views.verify_signature_game, name='verify_signature_game'),
     path('verify_signature/', views.verify_signature, name='verify_signature'),
     path('terms_of_service/', views.terms_of_service, name='terms_of_service'),
     path('privacy_policy/', views.privacy_policy, name='privacy_policy'),
