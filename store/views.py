@@ -1801,3 +1801,15 @@ def create_tweet(request):
         form = TweetForm()
     
     return render(request, 'tweet_form.html', {'form': form})
+
+def marketcap_async_search(request): 
+
+    search_name = str(request.GET.get('search_name', ''))
+    search_value = request.GET.get('search_value', '')
+    context = {'request': request, 'search_name': search_name , 'search_value': search_value  }
+
+    try:
+        return render(request, 'marketcap_async_search.html', context)
+    except Exception as e:
+        print("An error occurred while rendering the template:", e)
+        return render(request, 'error.html', {'error_message': 'An error occurred while rendering the template.'})
