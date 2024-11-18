@@ -1442,11 +1442,11 @@ def marketcap_async(request):
     try:
         try:
             access_token = Accesstoken.objects.get(access_cookie=access_id)
-            context = {'request': request, 'access_token': access_token }
+            context = {'request': request, 'access_token': access_token, 'MY_TOKEN': MY_TOKEN }
             return render(request, 'marketcap_async.html', context)
         except Accesstoken.DoesNotExist:
             access_token = None
-            context = {'request': request, 'access_token': access_token }
+            context = {'request': request, 'access_token': access_token, 'MY_TOKEN': MY_TOKEN }
             return render(request, 'marketcap_async.html', context)
 
     except Exception as e:
