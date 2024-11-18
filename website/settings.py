@@ -158,12 +158,14 @@ WSGI_APPLICATION = 'website.wsgi.application'
 
 ## RDS Deployment
 # AWS RDS settings
+'''
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
+'''
 
 # USED FOR Heroku deployment
 '''
@@ -178,6 +180,16 @@ DATABASES = {
     }
 }
 '''
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': os.environ['CLEARDB_DATABASE_NAME'],
+        'USER': os.environ['CLEARDB_DATABASE_USER'],
+        'PASSWORD': os.environ['CLEARDB_DATABASE_PASSWORD'],
+        'HOST': os.environ['CLEARDB_DATABASE_HOST'],
+        'PORT': os.environ['CLEARDB_DATABASE_PORT'],
+    }
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators
