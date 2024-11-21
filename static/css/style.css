@@ -161,24 +161,3 @@ a.terminal-green:hover {
   background-color: #28a745;
   color: #FFFFFF !important;
 }
-#tokenList {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr); /* 4 columns */
-  gap: 16px; /* Spacing between cards */
-  margin-top: 5rem;
-}
-
-.card {
-  background-color: #f9f9f9; /* Example card styling */
-  padding: 16px;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  text-align: center;
-}
-
-/* Keep the loading GIF centered */
-#loadingGif {
-  grid-column: 1 / -1; /* Make it span all columns */
-  text-align: center;
-  height: 100vh; /* Full viewport height for centering */
-}
