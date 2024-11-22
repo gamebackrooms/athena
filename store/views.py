@@ -1834,3 +1834,10 @@ def save_room_view(request):
             return JsonResponse({"error": str(e)}, status=400)
 
     return JsonResponse({"error": "Only POST requests are allowed."}, status=400)
+
+def room_list_view(request):
+    # Get all rooms from the database, ordered by created_at (newest first)
+    rooms = Room.objects.all().order_by('-created_at')
+
+    # Pass the rooms to the template
+    return render(request, 'room_list.html', {'rooms': rooms})

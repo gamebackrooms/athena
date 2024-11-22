@@ -78,6 +78,8 @@ urlpatterns = [
 
 
     path('save_room/', views.save_room_view, name='save_room'),
+    path('rooms/', views.room_list_view, name='room_list'),  # URL for listing rooms
+
 ]
 
 
