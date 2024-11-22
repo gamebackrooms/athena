@@ -41,7 +41,11 @@
             const tokenItem = document.createElement('div');
             tokenItem.className = 'col-md-3 token-item';
             const symbolStyle = (token.symbol.startsWith('$') || token.symbol !== token.symbol.toUpperCase() || token.symbol.length > 6) ? 'color: red;' : '';
+            var isDoubleScamFilterOn = document.getElementById('isDoubleScamFilterOn').checked;
 
+            if (isDoubleScamFilterOn && symbolStyle.includes('color: red;')) {
+               tokenItem.parentElement.parentElement.parentElement.parentElement.parentElement.remove();
+            }  
             
 //          const hasSocialLinks = !(token.twitter === null || token.twitter === '' || token.telegram === null || token.telegram === '' || token.website === null || token.website === '');
             
@@ -226,6 +230,7 @@ function getCreatorBalance(elementId, mintAddress) {
     <div class="row justify-content-center mt-3">
       <div class="col-md-8 text-center">
         Scam Filter is on <input type="checkbox" id="isScamFilterOn" name="isScamFilterOn" >
+        Double Scam Filter is on <input type="checkbox" id="isDoubleScamFilterOn" name="isDoubleScamFilterOn" >
       </div>
     </div>
 
