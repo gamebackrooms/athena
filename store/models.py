@@ -474,7 +474,25 @@ class Log(models.Model):
         ordering = ['-created_at']  # Optional: order by newest created first
 
 
+class Memory(models.Model):
+    id = models.AutoField(primary_key=True)  # Default primary key
+    external_id = models.CharField(max_length=255, unique=True)  # User ID associated with the memory
+    type = models.CharField(max_length=100)  # Type of memory
+    created_at_external = models.DateTimeField()  # External creation timestamp
+    created_at = models.DateTimeField(auto_now_add=True)  # Internal creation timestamp
+    content = models.TextField()  # Memory content
+    embedding = models.TextField(null=True, blank=True)  # Serialized embedding data
+    user_id = models.CharField(max_length=255)  # User ID associated with the memory
+    room_id = models.CharField(max_length=255, null=True, blank=True)  # Associated room ID
+    agent_id = models.CharField(max_length=255, null=True, blank=True)  # Associated agent ID
+    unique = models.BooleanField(default=False)  # Indicates if the memory is unique
 
+    def __str__(self):
+        return f"Memory {self.id} - {self.type}"
+
+    class Meta:
+        db_table = 'memories'  # Explicit table name
+        ordering = ['-created_at']  # Optional: order by newest created first
 
 class Account(models.Model):
     id = models.AutoField(primary_key=True)  # Default primary key
