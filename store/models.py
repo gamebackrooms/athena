@@ -215,15 +215,6 @@ class RaidLink(models.Model):
     def __str__(self):
         return f"RaidLink(token_mint={self.token_mint}, url={self.url}, click_count={self.click_count}, created_at={self.created_at}, created_by={self.created_by.username})"
 
-class RaidLink(models.Model):
-    token_mint = models.CharField(max_length=100)
-    url = models.URLField()
-    click_count = models.IntegerField(default=0)
-    created_at = models.DateTimeField(auto_now_add=True)
-    created_by = models.CharField(max_length=100)
-
-    def __str__(self):
-        return f"RaidLink(token_mint={self.token_mint}, url={self.url}, click_count={self.click_count}, created_at={self.created_at}, created_by={self.created_by.username})"
 
 class Game(models.Model):
     game_id = models.TextField(unique=True)
