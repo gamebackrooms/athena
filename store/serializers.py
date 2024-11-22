@@ -4,7 +4,7 @@ from .models import TwitterStatus
 from .models import UserQuery
 from .models import ConvoLog
 from .models import ConversationTopic
-
+from .models import Memory
 
 class ConversationTopicSerializer(serializers.ModelSerializer):
     class Meta:
@@ -25,3 +25,9 @@ class UserQuerySerializer(serializers.ModelSerializer):
     class Meta:
         model = UserQuery
         fields = ['id', 'created_date', 'username', 'question', 'reasoning', 'response', 'connanicall_action_text']
+
+
+class MemorySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Memory
+        fields = '__all__'

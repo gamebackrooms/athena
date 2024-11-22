@@ -92,6 +92,11 @@ from .serializers import ConversationTopicSerializer
 from .serializers import TwitterStatusSerializer
 from .serializers import UserQuerySerializer
 from .serializers import ConvoLogSerializer
+from .serializers import MemorySerializer
+
+from .services import MemoryService
+from .services import RoomService  # Import the RoomService class
+
 
 import base64
 import base58
@@ -120,7 +125,6 @@ from django.utils.timesince import timesince
 from django.http import JsonResponse 
 
 
-from .services import RoomService  # Import the RoomService class
 
 pokerGPT_version = "00.00.06"
 small_blind_size = 10
@@ -1868,3 +1872,37 @@ def room_list_view(request):
 
     # Pass the rooms to the template
     return render(request, 'room_list.html', {'rooms': rooms})
+
+
+class MemoryView(APIView):
+    def post(self, request):
+        serializer = MemorySerializer(data=request.data)
+        if serializer.is_valid():
+            memory = MemoryService.create_memory(serializer.validated_data)
+            return Response(MemorySerializer(memory).data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    def get(self, request, memory_id=None):
+        if memory_id:
+            memory = MemoryService.get_memory_by_id(memory_id)
+            if memory:
+                return Response(MemorySerializer(memory).data)
+            return Response({"detail": "Memory not found."}, status=status.HTTP_404_NOT_FOUND)
+        # Return all memories if no ID is provided
+        memories = Memory.objects.all()
+        return Response(MemorySerializer(memories, many=True).data)
+
+    def put(self, request, memory_id):
+        memory = MemoryService.get_memory_by_id(memory_id)
+        if not memory:
+            return Response({"detail": "Memory not found."}, status=status.HTTP_404_NOT_FOUND)
+        serializer = MemorySerializer(memory, data=request.data, partial=True)
+        if serializer.is_valid():
+            updated_memory = MemoryService.update_memory(memory_id, serializer.validated_data)
+            return Response(MemorySerializer(updated_memory).data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    def delete(self, request, memory_id):
+        if MemoryService.delete_memory(memory_id):
+            return Response({"detail": "Memory deleted."}, status=status.HTTP_204_NO_CONTENT)
+        return Response({"detail": "Memory not found."}, status=status.HTTP_404_NOT_FOUND)
