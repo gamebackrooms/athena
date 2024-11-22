@@ -1,6 +1,6 @@
 from datetime import datetime
 from .models import Room
-from .models import Memory
+#from .models import Memory
 
 
 class RoomService:
@@ -19,7 +19,7 @@ class RoomService:
         except Exception as e:
             raise ValueError(f"Error saving Room: {e}")
         
-
+'''
 class MemoryService:
     @staticmethod
     def create_memory(data):
@@ -69,3 +69,4 @@ class MemoryService:
             memory.delete()
             return True
         return False
+'''
