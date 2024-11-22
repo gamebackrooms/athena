@@ -118,6 +118,9 @@ from django.core.paginator import Paginator
 from django.utils.timesince import timesince
 from django.http import JsonResponse 
 
+
+from .services import RoomService  # Import the RoomService class
+
 pokerGPT_version = "00.00.06"
 small_blind_size = 10
 big_blind_size = 20
@@ -1811,3 +1814,23 @@ def marketcap_async_search(request):
     except Exception as e:
         print("An error occurred while rendering the template:", e)
         return render(request, 'error.html', {'error_message': 'An error occurred while rendering the template.'})
+
+@csrf_exempt  # For simplicity, disable CSRF validation (for testing)
+def save_room_view(request):
+    if request.method == 'POST':
+        try:
+            # Extract data from POST request (you can also use JSON or form data)
+            external_id = request.POST.get('external_id')
+            external_date_created = request.POST.get('external_date_created')
+
+            # Call the RoomService to save the room
+            room = RoomService.save_room(external_id, external_date_created)
+
+            # Return success response
+            return JsonResponse({"message": "Room saved successfully", "room_id": room.id})
+        
+        except Exception as e:
+            # Return error response
+            return JsonResponse({"error": str(e)}, status=400)
+
+    return JsonResponse({"error": "Only POST requests are allowed."}, status=400)

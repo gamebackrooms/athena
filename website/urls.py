@@ -75,6 +75,9 @@ urlpatterns = [
     path('add/', views.create_tweet, name='tweet_add'),  # URL for creating a new tweet
     path('toggle-scam-filter/', views.toggle_scam_filter, name='toggle_scam_filter'),
     path('marketcap_async_search/', views.marketcap_async_search, name='marketcap_async_search'), 
+
+
+    path('save_room/', views.save_room_view, name='save_room'),
 ]
 
 

@@ -392,3 +392,120 @@ class Comment(models.Model):
 
     def __str__(self):
         return f"Comment by {self.wallet_id} on {self.date}"
+
+
+class Room(models.Model):
+    id = models.AutoField(primary_key=True)  # Default primary key
+    external_id = models.CharField(max_length=255, unique=True)  # External ID field
+    external_date_created = models.DateTimeField()  # External date created field
+    created_at = models.DateTimeField(auto_now_add=True)  # Internal creation timestamp
+
+    def __str__(self):
+        return self.external_id
+
+    class Meta:
+        db_table = 'rooms'  # Explicitly define the table name
+        ordering = ['-created_at']  # Optional: order by newest created first
+
+class Relationship(models.Model):
+    id = models.AutoField(primary_key=True)  # Default primary key
+    user_a = models.CharField(max_length=255)  # Representing userA
+    user_b = models.CharField(max_length=255)  # Representing userB
+    status = models.CharField(max_length=50)  # Relationship status
+    user_id = models.CharField(max_length=255)  # Representing userId (additional identifier)
+    created_at_external = models.DateTimeField()  # External creation timestamp
+    created_at = models.DateTimeField(auto_now_add=True)  # Internal creation timestamp
+
+    def __str__(self):
+        return f"{self.user_a} - {self.user_b} ({self.status})"
+
+    class Meta:
+        db_table = 'relationships'  # Explicitly define the table name
+        ordering = ['-created_at']  # Optional: order by newest created first        
+
+class Participant(models.Model):
+    id = models.AutoField(primary_key=True)  # Default primary key
+    user_id = models.CharField(max_length=255)  # User ID field
+    room_id = models.CharField(max_length=255)  # Room ID field
+    user_state = models.CharField(max_length=50)  # User state in the room
+    last_message_read = models.DateTimeField(null=True, blank=True)  # Timestamp of the last message read
+    created_at_external = models.DateTimeField()  # External creation timestamp
+    created_at = models.DateTimeField(auto_now_add=True)  # Internal creation timestamp
+
+    def __str__(self):
+        return f"User {self.user_id} in Room {self.room_id} ({self.user_state})"
+
+    class Meta:
+        db_table = 'participants'  # Explicitly define the table name
+        ordering = ['-created_at']  # Optional: order by newest created first
+
+class Goal(models.Model):
+    id = models.AutoField(primary_key=True)  # Default primary key
+    user_id = models.CharField(max_length=255)  # User ID field
+    name = models.CharField(max_length=255)  # Goal name
+    status = models.CharField(max_length=50)  # Status of the goal
+    description = models.TextField(null=True, blank=True)  # Detailed description of the goal
+    room_id = models.CharField(max_length=255, null=True, blank=True)  # Associated room ID
+    objectives = models.TextField(null=True, blank=True)  # Objectives in a serialized format
+    created_at_external = models.DateTimeField()  # External creation timestamp
+    created_at = models.DateTimeField(auto_now_add=True)  # Internal creation timestamp
+
+    def __str__(self):
+        return f"Goal: {self.name} (Status: {self.status})"
+
+    class Meta:
+        db_table = 'goals'  # Explicit table name
+        ordering = ['-created_at']  # Optional: order by newest created first
+
+class Log(models.Model):
+    id = models.AutoField(primary_key=True)  # Default primary key
+    user_id = models.CharField(max_length=255)  # User ID field
+    body = models.TextField()  # Log content
+    type = models.CharField(max_length=50)  # Log type
+    room_id = models.CharField(max_length=255, null=True, blank=True)  # Associated room ID
+    created_at_external = models.DateTimeField()  # External creation timestamp
+    created_at = models.DateTimeField(auto_now_add=True)  # Internal creation timestamp
+
+    def __str__(self):
+        return f"Log by User {self.user_id} (Type: {self.type})"
+
+    class Meta:
+        db_table = 'logs'  # Explicit table name
+        ordering = ['-created_at']  # Optional: order by newest created first
+
+
+class Memory(models.Model):
+    id = models.AutoField(primary_key=True)  # Default primary key
+    type = models.CharField(max_length=100)  # Type of memory
+    created_at_external = models.DateTimeField()  # External creation timestamp
+    created_at = models.DateTimeField(auto_now_add=True)  # Internal creation timestamp
+    content = models.TextField()  # Memory content
+    embedding = models.TextField(null=True, blank=True)  # Serialized embedding data
+    user_id = models.CharField(max_length=255)  # User ID associated with the memory
+    room_id = models.CharField(max_length=255, null=True, blank=True)  # Associated room ID
+    agent_id = models.CharField(max_length=255, null=True, blank=True)  # Associated agent ID
+    unique = models.BooleanField(default=False)  # Indicates if the memory is unique
+
+    def __str__(self):
+        return f"Memory {self.id} - {self.type}"
+
+    class Meta:
+        db_table = 'memories'  # Explicit table name
+        ordering = ['-created_at']  # Optional: order by newest created first
+
+class Account(models.Model):
+    id = models.AutoField(primary_key=True)  # Default primary key
+    name = models.CharField(max_length=255)  # Full name of the account holder
+    username = models.CharField(max_length=150, unique=True)  # Username, must be unique
+    email = models.EmailField(unique=True)  # Email address, must be unique
+    avatar_url = models.URLField(max_length=500, null=True, blank=True)  # Optional URL to the avatar image
+    details = models.TextField(null=True, blank=True)  # Additional details about the account
+    created_at_external = models.DateTimeField()  # External creation timestamp
+    created_at = models.DateTimeField(auto_now_add=True)  # Internal creation timestamp
+
+    def __str__(self):
+        return f"{self.username} ({self.email})"
+
+    class Meta:
+        db_table = 'accounts'  # Explicitly define the table name
+        ordering = ['-created_at']  # Optional: order by newest created first
