@@ -42,11 +42,10 @@
             tokenItem.className = 'col-md-3 token-item';
             const symbolStyle = (token.symbol.startsWith('$') || token.symbol !== token.symbol.toUpperCase() || token.symbol.length > 6) ? 'color: red;' : '';
             var isDoubleScamFilterOn = document.getElementById('isDoubleScamFilterOn').checked;
-
-            if (isDoubleScamFilterOn && symbolStyle.includes('color: red;')) {
-               tokenItem.parentElement.parentElement.parentElement.parentElement.parentElement.remove();
-            }  
-            
+ 
+            if (isDoubleScamFilterOn && (token.symbol.startsWith('$') || token.symbol !== token.symbol.toUpperCase() || token.symbol.length > 6)) { 
+              tokenItem.parentElement.parentElement.parentElement.parentElement.parentElement.remove();
+            }            
 //          const hasSocialLinks = !(token.twitter === null || token.twitter === '' || token.telegram === null || token.telegram === '' || token.website === null || token.website === '');
             
 
