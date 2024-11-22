@@ -85,6 +85,7 @@ from .models import Token as PumpFunToken
 from .models import RaidLink
 from .models import Tweet
 from .models import Room
+from .models import Memory
 
 from .forms import TweetForm 
 from .forms import TokenMarketingContentForm
