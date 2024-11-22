@@ -7,7 +7,7 @@
         <h1 class="mb-4">Room List</h1>
         
         {% if rooms %}
-            <table class="table table-striped table-bordered">
+            <table class="table table-striped table-bordered text-white">
                 <thead class="thead-dark">
                     <tr>
                         <th>Room ID</th>
@@ -18,7 +18,7 @@
                 </thead>
                 <tbody>
                     {% for room in rooms %}
-                        <tr>
+                        <tr >
                             <td>{{ room.id }}</td>
                             <td>{{ room.external_id }}</td>
                             <td>{{ room.external_date_created }}</td>
