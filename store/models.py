@@ -476,7 +476,7 @@ class Log(models.Model):
 
 class Memory(models.Model):
     id = models.AutoField(primary_key=True)  # Default primary key
-    external_id = models.CharField(max_length=255, null=True, blank=True)  # User ID associated with the memory
+    external_id = models.CharField(max_length=255, unique=True)  # User ID associated with the memory
     type = models.CharField(max_length=100)  # Type of memory
     created_at_external = models.DateTimeField()  # External creation timestamp
     created_at = models.DateTimeField(auto_now_add=True)  # Internal creation timestamp
