@@ -473,7 +473,7 @@ class Log(models.Model):
         db_table = 'logs'  # Explicit table name
         ordering = ['-created_at']  # Optional: order by newest created first
 
-
+'''
 class Memory(models.Model):
     id = models.AutoField(primary_key=True)  # Default primary key
     external_id = models.CharField(max_length=255, unique=True) 
@@ -493,7 +493,8 @@ class Memory(models.Model):
     class Meta:
         db_table = 'memories'  # Explicit table name
         ordering = ['-created_at']  # Optional: order by newest created first
-
+'''
+        
 class Account(models.Model):
     id = models.AutoField(primary_key=True)  # Default primary key
     name = models.CharField(max_length=255)  # Full name of the account holder
