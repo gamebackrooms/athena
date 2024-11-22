@@ -1836,6 +1836,32 @@ def save_room_view(request):
 
     return JsonResponse({"error": "Only POST requests are allowed."}, status=400)
 
+@api_view(['POST'])
+def save_room(request):
+    try:
+        # Extract data from request
+        external_id = request.data.get('external_id')
+        external_date_created_str = request.data.get('external_date_created')
+        
+        if not external_id or not external_date_created_str:
+            return Response({"error": "Invalid data"}, status=status.HTTP_400_BAD_REQUEST)
+        
+        # Convert external_date_created to datetime
+        external_date_created = datetime.strptime(external_date_created_str, "%Y-%m-%d %H:%M:%S")
+        
+        # Save room to the database
+        room = Room.objects.create(
+            external_id=external_id,
+            external_date_created=external_date_created
+        )
+        
+        # Return success response
+        return Response({"message": "Room saved successfully", "room_id": room.id}, status=status.HTTP_201_CREATED)
+    
+    except Exception as e:
+        return Response({"error": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+
 def room_list_view(request):
     # Get all rooms from the database, ordered by created_at (newest first)
     rooms = Room.objects.all().order_by('-created_at')
