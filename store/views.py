@@ -95,9 +95,9 @@ from .serializers import ConversationTopicSerializer
 from .serializers import TwitterStatusSerializer
 from .serializers import UserQuerySerializer
 from .serializers import ConvoLogSerializer
-#from .serializers import MemorySerializer
+from .serializers import MemorySerializer
 
-#from .services import MemoryService
+from .services import MemoryService
 from .services import RoomService  # Import the RoomService class
 
 
@@ -1876,7 +1876,7 @@ def room_list_view(request):
     # Pass the rooms to the template
     return render(request, 'room_list.html', {'rooms': rooms})
 
-'''
+
 class MemoryView(APIView):
     def post(self, request):
         serializer = MemorySerializer(data=request.data)
@@ -1910,4 +1910,3 @@ class MemoryView(APIView):
             return Response({"detail": "Memory deleted."}, status=status.HTTP_204_NO_CONTENT)
         return Response({"detail": "Memory not found."}, status=status.HTTP_404_NOT_FOUND)
 
-'''
