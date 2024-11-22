@@ -83,6 +83,7 @@ urlpatterns = [
 
     path('memory/', views.MemoryView.as_view(), name='create_memory'),
     path('memory/<int:memory_id>/', views.MemoryView.as_view(), name='memory_detail'),
+    path('memories/', views.MemoryView.as_view(), name='memory-list'),  # View all memories 
 
 ]
 
