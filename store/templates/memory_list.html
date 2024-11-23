@@ -7,7 +7,7 @@
     {% for memory in memories %}
       <li>
         <a href="{% url 'memory_detail' memory.id %}">
-          {{ memory.content }}
+          <span class="text-white">{{ memory.content }}</span>
         </a> - Created at: {{ memory.created_at }}
       </li>
     {% endfor %}
