@@ -469,7 +469,7 @@ class Memory(models.Model):
     id = models.AutoField(primary_key=True)  # Default primary key
     external_id = models.CharField(max_length=255, unique=True) 
     type = models.CharField(max_length=100)  # Type of memory
-    created_at_external = models.DateTimeField()  # External creation timestamp
+    created_at_external = models.DateTimeField(auto_now_add=True)  # External creation timestamp
     created_at = models.DateTimeField(auto_now_add=True)  # Internal creation timestamp
     content = models.TextField()  # Memory content
     embedding = models.TextField(null=True, blank=True)  # Serialized embedding data
