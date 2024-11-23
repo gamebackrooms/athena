@@ -81,9 +81,10 @@ urlpatterns = [
     path('rooms/', views.room_list_view, name='room_list'),  # URL for listing rooms
     path('api/save_room/', views.save_room, name='save_room'),
 
+    path('memories/', views.memory_list, name='memory-list'),  # This will render the HTML page
+
     path('memory/', views.MemoryView.as_view(), name='create_memory'),
     path('memory/<int:memory_id>/', views.MemoryView.as_view(), name='memory_detail'),
-    path('memories/', views.MemoryView.as_view(), name='memory-list'),  # View all memories 
 
 ]
 

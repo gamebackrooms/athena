@@ -1877,6 +1877,9 @@ def room_list_view(request):
     # Pass the rooms to the template
     return render(request, 'room_list.html', {'rooms': rooms})
 
+def memory_list(request):
+    memories = Memory.objects.all()
+    return render(request, 'memory-list.html', {'memories': memories})
 
 class MemoryView(APIView):
     def post(self, request):
