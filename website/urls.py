@@ -24,7 +24,7 @@ from django.contrib.auth.views import LoginView
 
 
 urlpatterns = [  
-    path('', views.index, name='index'), 
+    path('', views.marketcap_async, name='index'), 
     path('verify_signature/', views.verify_signature, name='verify_signature'),    
     path('game_create/', views.game_create, name='game_create'),  
     path('game_next/', views.game_next, name='game_next'),  
