@@ -42,12 +42,12 @@
             tokenItem.className = 'col-md-3 token-item';
             const symbolStyle = (token.symbol.startsWith('$') || token.symbol !== token.symbol.toUpperCase() || token.symbol.length > 6) ? 'color: red;' : '';
             var isDoubleScamFilterOn = document.getElementById('isDoubleScamFilterOn').checked;
- 
+
             if (
               isDoubleScamFilterOn &&
               (token.symbol.startsWith('$') ||
               !(token.symbol === token.symbol.toUpperCase() || token.symbol === token.symbol.toLowerCase()) || 
-              token.symbol.length > 8)
+              token.symbol.length > 7)
             ) { 
               tokenItem.parentElement.parentElement.parentElement.parentElement.parentElement.remove();
             }           
