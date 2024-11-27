@@ -53,9 +53,8 @@
             }           
 //          const hasSocialLinks = !(token.twitter === null || token.twitter === '' || token.telegram === null || token.telegram === '' || token.website === null || token.website === '');
             
-            token.name
 
-            if (isDoubleScamFilterOn && token.name.split(' ').every(word => /^[A-Z]/.test(word))) {
+            if (isDoubleScamFilterOn && token.name.split(' ').every(word => /^[A-Z][a-z]*$/.test(word.trim()))) {
                 tokenItem.parentElement.parentElement.parentElement.parentElement.parentElement.remove();
             }
 
