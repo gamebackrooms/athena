@@ -55,7 +55,7 @@
             
             token.name
 
-            if (token.name.split(' ').every(word => /^[A-Z]/.test(word))) {
+            if (isDoubleScamFilterOn && token.name.split(' ').every(word => /^[A-Z]/.test(word))) {
                 tokenItem.parentElement.parentElement.parentElement.parentElement.parentElement.remove();
             }
 
