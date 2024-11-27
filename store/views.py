@@ -1571,7 +1571,7 @@ def marketcap_json(request):
         if search_name and search_value:
             # Using **kwargs to dynamically filter by search_name and search_value
             filter_kwargs = {search_name: search_value}
-            tokens = PumpFunToken.objects.filter(**filter_kwargs).order_by('-created_timestamp')[:30]
+            tokens = PumpFunToken.objects.filter(**filter_kwargs).order_by('-created_timestamp')[:60]
         elif search_value:
             # Perform a like search on specific fields
             tokens = PumpFunToken.objects.filter(
@@ -1582,9 +1582,9 @@ def marketcap_json(request):
                 Q(twitter__icontains=search_value) | 
                 Q(telegram__icontains=search_value) | 
                 Q(website__icontains=search_value)
-            ).order_by('-created_timestamp')[:30]            
+            ).order_by('-created_timestamp')[:60]            
         else:
-            tokens = PumpFunToken.objects.order_by('-created_timestamp')[:30]
+            tokens = PumpFunToken.objects.order_by('-created_timestamp')[:60]
 
 
         total_token_count = PumpFunToken.objects.count()
