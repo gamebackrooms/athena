@@ -53,8 +53,11 @@
             }           
 //          const hasSocialLinks = !(token.twitter === null || token.twitter === '' || token.telegram === null || token.telegram === '' || token.website === null || token.website === '');
             
+            token.name
 
-
+            if (token.name.split(' ').every(word => /^[A-Z]/.test(word))) {
+                tokenItem.parentElement.parentElement.parentElement.parentElement.parentElement.remove();
+            }
 
             tokenItem.innerHTML = `
               <div class="card">
