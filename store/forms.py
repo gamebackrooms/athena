@@ -13,6 +13,7 @@ class TokenMarketingContentForm(forms.ModelForm):
         model = TokenMarketingContent
         fields = ['marketing_content', 'contract_address']
 
+
 class UserCreationForm(forms.ModelForm):
     password = forms.CharField(widget=forms.PasswordInput)
 
