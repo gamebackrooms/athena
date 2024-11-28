@@ -1914,3 +1914,17 @@ class MemoryView(APIView):
             return Response({"detail": "Memory deleted."}, status=status.HTTP_204_NO_CONTENT)
         return Response({"detail": "Memory not found."}, status=status.HTTP_404_NOT_FOUND)
 
+
+@csrf_exempt
+@admin_required
+def tweet_add(request): 
+
+    form = TweetForm()
+    
+    context = { 
+        'form': form,
+    }
+    response = render(request, 'tweet_form.html', context) 
+
+
+    return response
