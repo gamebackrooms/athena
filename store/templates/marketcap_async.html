@@ -46,11 +46,22 @@
             if (
               isDoubleScamFilterOn &&
               (token.symbol.startsWith('$') ||
+              !(token.symbol === token.symbol.toUpperCase()) || 
+              token.symbol.length > 7)
+            ) { 
+              tokenItem.parentElement.parentElement.parentElement.parentElement.parentElement.remove();
+            }    
+
+            /**
+            if (
+              isDoubleScamFilterOn &&
+              (token.symbol.startsWith('$') ||
               !(token.symbol === token.symbol.toUpperCase() || token.symbol === token.symbol.toLowerCase()) || 
               token.symbol.length > 8)
             ) { 
               tokenItem.parentElement.parentElement.parentElement.parentElement.parentElement.remove();
-            }           
+            }    
+            **/       
 //          const hasSocialLinks = !(token.twitter === null || token.twitter === '' || token.telegram === null || token.telegram === '' || token.website === null || token.website === '');
             
  

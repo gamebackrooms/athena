@@ -1584,7 +1584,7 @@ def marketcap_json(request):
                 Q(website__icontains=search_value)
             ).order_by('-created_timestamp')[:15]            
         else:
-            tokens = PumpFunToken.objects.order_by('-created_timestamp')[:8]
+            tokens = PumpFunToken.objects.order_by('-created_timestamp')[:13]
 
 
         total_token_count = PumpFunToken.objects.count()
