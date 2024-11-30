@@ -10,7 +10,7 @@ from django.http import JsonResponse
 from django.http import HttpResponse
 
 from django.contrib import messages
-from django.contrib.auth.decorators import user_passes_test
+from django.contrib.auth.decorators import user_passes_test, login_required
 
 from django.views.generic.edit import CreateView
 from django.views.generic import View
@@ -148,7 +148,13 @@ poker_player_types = [{"type": "Drunk Player", "description": "Often makes reckl
 
 
 def admin_required(view_func):
-    return user_passes_test(lambda u: u.is_superuser)(view_func)
+    """
+    Decorator to ensure the user is logged in and is a superuser.
+    """
+    decorated_view_func = login_required(
+        user_passes_test(lambda u: u.is_superuser)(view_func)
+    )
+    return decorated_view_func
 
 
 def strip_non_unicode(text):
