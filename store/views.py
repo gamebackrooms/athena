@@ -589,7 +589,9 @@ def toggle_handle_status(request, handle_id):
     return redirect('index')  # Redirect to the list view (update the name if different)
 
 
+@user_passes_test(superuser_required)
 def index(request):
+
     access_id = request.COOKIES.get('access_id')
     access_token = None
     create_token = False
