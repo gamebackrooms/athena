@@ -1564,10 +1564,10 @@ def marketcap_json(request):
     try:
         search_name = request.GET.get('search_name')
         search_value = request.GET.get('search_value')
-        
-        # Base queryset
+
+        # Base queryset with ordering
         tokens_query = PumpFunToken.objects.order_by('-created_timestamp')
-        
+
         if search_name and search_value:
             filter_kwargs = {search_name: search_value}
             tokens_query = tokens_query.filter(**filter_kwargs)[:20]
@@ -1583,25 +1583,24 @@ def marketcap_json(request):
             )[:15]
         else:
             tokens_query = tokens_query[:20]
-        
+
         total_token_count = PumpFunToken.objects.count()
 
-        # Fetch data as dictionaries directly using .values()
-        token_list = list(
-            tokens_query.values(
-                'id', 'mint', 'name', 'symbol', 'description', 
-                'image_uri', 'metadata_uri', 'twitter', 'telegram', 
-                'creator', 'website', 'ai_analysis'
-            )
+        # Fetch only necessary fields using values()
+        token_list = tokens_query.values(
+            'id', 'mint', 'name', 'symbol', 'description', 
+            'image_uri', 'metadata_uri', 'twitter', 'telegram', 
+            'creator', 'website', 'ai_analysis'
         )
-        
+
+        # Convert the queryset to a list explicitly for the JSON response
         response_data = {
-            'tokens': token_list,
+            'tokens': list(token_list),
             'total_token_count': total_token_count
         }
 
         return JsonResponse(response_data)
-    
+
     except Exception as e:
         print("An error occurred while fetching data from the database:", e)
         return JsonResponse({'error_message': 'An error occurred while fetching data from the database.'}, status=500)
