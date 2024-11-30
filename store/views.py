@@ -129,6 +129,10 @@ from django.utils.timesince import timesince
 from django.http import JsonResponse 
 from functools import wraps
 
+from django.contrib.auth.decorators import login_required
+from django.http import HttpResponseForbidden
+from functools import wraps
+from django.shortcuts import redirect
 
 pokerGPT_version = "00.00.06"
 small_blind_size = 10
@@ -151,18 +155,20 @@ def admin_required(view_func):
     """
     Decorator to ensure the user is logged in and is a superuser.
     """
-    def wrapper(request, *args, **kwargs):
+    @wraps(view_func)
+    def _wrapped_view(request, *args, **kwargs):
         # Check if the user is authenticated
         if not request.user.is_authenticated:
-            return redirect('login')  # Replace 'login' with your login URL name
+            return redirect('login')  # Redirect to your login page
 
         # Check if the user is a superuser
         if not request.user.is_superuser:
             return HttpResponseForbidden("You do not have permission to access this page.")
 
+        # Proceed to the view if checks pass
         return view_func(request, *args, **kwargs)
 
-    return login_required(wrapper)
+    return _wrapped_view
 
 
 def strip_non_unicode(text):

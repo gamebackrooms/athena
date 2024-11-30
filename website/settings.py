@@ -128,6 +128,8 @@ MIDDLEWARE = [
 
     # Add AccountMiddleware from allauth
     'allauth.account.middleware.AccountMiddleware',
+
+ 
 ]
 
 ROOT_URLCONF = 'website.urls'
