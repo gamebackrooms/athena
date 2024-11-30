@@ -612,7 +612,7 @@ def toggle_handle_status(request, handle_id):
 @admin_required
 def index(request):
 
-    if not request.GET.get('acc_code'):
+    if request.GET.get('acc_code') != "pass":
         response = render(request, 'index.html')
         return response
         
