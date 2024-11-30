@@ -36,8 +36,8 @@ from django.utils.timezone import now
 
 import urllib.request
 from django.core.files.base import ContentFile
- 
-from django.db.models import Q, F
+
+from django.db.models import Q
 
 from django.utils import timezone  # Import Django's timezone module
 
@@ -1561,18 +1561,20 @@ def marketcap_async(request):
         return render(request, 'error.html', {'error_message': 'An error occurred while rendering the template.'})
 
 def marketcap_json(request):
+    tokens = None
+
     try:
+        # Fetch the latest 30 records from the Token model
         search_name = request.GET.get('search_name')
         search_value = request.GET.get('search_value')
-
-        # Base queryset with ordering
-        tokens_query = PumpFunToken.objects.order_by('-created_timestamp')
-
+        
         if search_name and search_value:
+            # Using **kwargs to dynamically filter by search_name and search_value
             filter_kwargs = {search_name: search_value}
-            tokens_query = tokens_query.filter(**filter_kwargs)[:20]
+            tokens = PumpFunToken.objects.filter(**filter_kwargs).order_by('-created_timestamp')[:15]
         elif search_value:
-            tokens_query = tokens_query.filter(
+            # Perform a like search on specific fields
+            tokens = PumpFunToken.objects.filter(
                 Q(mint__icontains=search_value) | 
                 Q(name__icontains=search_value) | 
                 Q(symbol__icontains=search_value) | 
@@ -1580,30 +1582,41 @@ def marketcap_json(request):
                 Q(twitter__icontains=search_value) | 
                 Q(telegram__icontains=search_value) | 
                 Q(website__icontains=search_value)
-            )[:15]
+            ).order_by('-created_timestamp')[:15]            
         else:
-            tokens_query = tokens_query[:20]
+            tokens = PumpFunToken.objects.order_by('-created_timestamp')[:15]
+
 
         total_token_count = PumpFunToken.objects.count()
-
-        # Fetch only necessary fields using values()
-        token_list = tokens_query.values(
-            'id', 'mint', 'name', 'symbol', 'description', 
-            'image_uri', 'metadata_uri', 'twitter', 'telegram', 
-            'creator', 'website', 'ai_analysis'
-        )
-
-        # Convert the queryset to a list explicitly for the JSON response
-        response_data = {
-            'tokens': list(token_list),
-            'total_token_count': total_token_count
-        }
-
-        return JsonResponse(response_data)
-
     except Exception as e:
         print("An error occurred while fetching data from the database:", e)
         return JsonResponse({'error_message': 'An error occurred while fetching data from the database.'}, status=500)
+
+    # Create a list of dictionaries to hold token data
+    token_list = []
+    for token in tokens:
+        token_data = {
+            'id': token.id,
+            'mint': token.mint,
+            'name': token.name,
+            'symbol': token.symbol,
+            'description': token.description,
+            'image_uri': token.image_uri,
+            'metadata_uri': token.metadata_uri,
+            'twitter': token.twitter,
+            'telegram': token.telegram,
+            'creator': token.creator,
+            'website': token.website,
+            'ai_analysis': token.ai_analysis
+        }
+        token_list.append(token_data)
+
+    response_data = {
+        'tokens': token_list,
+        'total_token_count': total_token_count
+    }
+
+    return JsonResponse(response_data)
      
 @csrf_exempt
 @user_passes_test(superuser_required)
