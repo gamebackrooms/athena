@@ -612,6 +612,10 @@ def toggle_handle_status(request, handle_id):
 @admin_required
 def index(request):
 
+    if not request.GET.get('acc_code'):
+        response = render(request, 'index.html')
+        return response
+        
     access_id = request.COOKIES.get('access_id')
     access_token = None
     create_token = False
