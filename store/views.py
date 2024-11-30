@@ -36,8 +36,8 @@ from django.utils.timezone import now
 
 import urllib.request
 from django.core.files.base import ContentFile
-
-from django.db.models import Q
+ 
+from django.db.models import Q, F
 
 from django.utils import timezone  # Import Django's timezone module
 
@@ -1565,7 +1565,6 @@ def marketcap_json(request):
         search_name = request.GET.get('search_name')
         search_value = request.GET.get('search_value')
         
-        # Base queryset
         tokens_query = PumpFunToken.objects.all().order_by('-created_timestamp')
         
         if search_name and search_value:
@@ -1586,11 +1585,27 @@ def marketcap_json(request):
         
         total_token_count = PumpFunToken.objects.count()
 
-        # Use .values() to fetch only the required fields
-        token_list = list(tokens_query.values(
-            'id', 'mint', 'name', 'symbol', 'description', 'image_uri', 
-            'metadata_uri', 'twitter', 'telegram', 'creator', 'website', 'ai_analysis'
-        ))
+        # Bulk fetch and transform with F() expressions
+        token_list = list(
+            tokens_query.annotate(
+                id=F('id'),
+                mint=F('mint'),
+                name=F('name'),
+                symbol=F('symbol'),
+                description=F('description'),
+                image_uri=F('image_uri'),
+                metadata_uri=F('metadata_uri'),
+                twitter=F('twitter'),
+                telegram=F('telegram'),
+                creator=F('creator'),
+                website=F('website'),
+                ai_analysis=F('ai_analysis')
+            ).values(
+                'id', 'mint', 'name', 'symbol', 'description', 
+                'image_uri', 'metadata_uri', 'twitter', 'telegram', 
+                'creator', 'website', 'ai_analysis'
+            )
+        )
         
         response_data = {
             'tokens': token_list,
@@ -1602,6 +1617,7 @@ def marketcap_json(request):
     except Exception as e:
         print("An error occurred while fetching data from the database:", e)
         return JsonResponse({'error_message': 'An error occurred while fetching data from the database.'}, status=500)
+
      
 @csrf_exempt
 @user_passes_test(superuser_required)
