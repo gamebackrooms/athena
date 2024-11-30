@@ -127,7 +127,7 @@ from django.contrib.auth import authenticate
 from django.core.paginator import Paginator
 from django.utils.timesince import timesince
 from django.http import JsonResponse 
-
+from functools import wraps
 
 
 pokerGPT_version = "00.00.06"
@@ -151,10 +151,16 @@ def admin_required(view_func):
     """
     Decorator to ensure the user is logged in and is a superuser.
     """
-    decorated_view_func = login_required(
-        user_passes_test(lambda u: u.is_superuser)(view_func)
-    )
-    return decorated_view_func
+    @wraps(view_func)
+    def wrapper(request, *args, **kwargs):
+        # Ensure the user is authenticated and is a superuser
+        if not request.user.is_authenticated:
+            return redirect('login')  # Replace 'login' with your login URL name
+        if not request.user.is_superuser:
+            return HttpResponseForbidden("You do not have permission to access this page.")
+        return view_func(request, *args, **kwargs)
+
+    return wrapper
 
 
 def strip_non_unicode(text):
