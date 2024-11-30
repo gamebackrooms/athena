@@ -151,16 +151,18 @@ def admin_required(view_func):
     """
     Decorator to ensure the user is logged in and is a superuser.
     """
-    @wraps(view_func)
     def wrapper(request, *args, **kwargs):
-        # Ensure the user is authenticated and is a superuser
+        # Check if the user is authenticated
         if not request.user.is_authenticated:
             return redirect('login')  # Replace 'login' with your login URL name
+
+        # Check if the user is a superuser
         if not request.user.is_superuser:
             return HttpResponseForbidden("You do not have permission to access this page.")
+
         return view_func(request, *args, **kwargs)
 
-    return wrapper
+    return login_required(wrapper)
 
 
 def strip_non_unicode(text):
