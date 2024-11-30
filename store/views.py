@@ -1567,7 +1567,10 @@ def get_count(request):
 def superuser_required(user):
     return user.is_superuser
 
+
+@admin_required
 def marketcap_async(request): 
+
 
     access_id = request.COOKIES.get('access_id')
 
