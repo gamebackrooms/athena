@@ -614,8 +614,7 @@ def index(request):
 
     acc_code = request.GET.get('acc_code', '').strip()
 
-    if acc_code != "pass": 
-        return redirect('login')
+    return redirect('login')
         
     access_id = request.COOKIES.get('access_id')
     access_token = None
