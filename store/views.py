@@ -1830,6 +1830,7 @@ def tweet_list(request):
 
 
 # View to create a new tweet
+@admin_required
 def create_tweet(request):
     if request.method == 'POST':
         form = TweetForm(request.POST)
