@@ -1746,9 +1746,6 @@ def token_detail(request, mint):
             access_token = Accesstoken.objects.get(access_cookie=access_cookie)
             public_wallet_address = access_token.public_wallet_address
             print(public_wallet_address)
-            # Fetch user based on public_wallet_address if needed
-            # This assumes you have a method to map public_wallet_address to a User
-
         except Accesstoken.DoesNotExist:
             access_token = None
 
@@ -1790,12 +1787,34 @@ def token_detail(request, mint):
             account = match.group(1)
             accounts.add(account)
 
+    # Prepare data for JSON response
+    response_data = {
+        'token': {
+            'mint': token.mint,
+            'name': token.name,  # Assuming `PumpFunToken` has a `name` field
+            'description': token.description,  # Assuming `PumpFunToken` has a `description` field
+        },
+        'raid_links': [
+            {
+                'url': link.url,
+                'click_count': link.click_count,
+                'created_by': link.created_by,
+                'created_at': link.created_at.isoformat()
+            }
+            for link in raid_links
+        ],
+        'distinct_accounts': list(accounts),
+    }
+
+    # Check if the request is for JSON
+    if request.headers.get('Accept') == 'application/json' or request.GET.get('format') == 'json':
+        return JsonResponse(response_data)
+
     return render(request, 'token_detail.html', {
         'token': token,
         'raid_links': raid_links,  # Pass the raid links to the template context
         'distinct_accounts': list(accounts)  # Pass distinct accounts to the template context
     })
-
 
 def delete_tweet_by_content(request):
     content = request.GET.get('content')  # Get the content from the query string
