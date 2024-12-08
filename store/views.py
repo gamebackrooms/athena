@@ -1791,7 +1791,9 @@ def token_detail(request, mint):
     response_data = {
         'token': {
             'mint': token.mint,
-            'name': token.name,  # Assuming `PumpFunToken` has a `name` field
+            'name': token.name,
+            'symbol': token.symbol,
+            'image_uri': token.image_uri,  # Assuming `PumpFunToken` has a `name` field
             'description': token.description,  # Assuming `PumpFunToken` has a `description` field
         },
         'raid_links': [
